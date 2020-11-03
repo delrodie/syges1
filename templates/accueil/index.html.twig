@@ -1,0 +1,375 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} Système de Gestion des Etablissement Scolaire{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <div class="row  mt-3">
+            <div class="col-xl-4 d-flex grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap justify-content-between">
+                            <h2 class="mb-0 extra-large-title mt-1">Total </h2>
+                        </div>
+                        <p class="mt-2">.</p>
+                        <div class="d-lg-flex align-items-baseline justify-content-between mt-3">
+                            <div class="d-flex align-items-center">
+                                <div class="icon-bg-square">
+                                    <i class="fa fa-users fa-3x"></i>
+                                </div>
+                                <h1 class="text-dark font-weight-bold">100</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 d-flex grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body py-4">
+                        <div class="d-flex flex-wrap justify-content-between">
+                            <h2 class="mb-0 extra-large-title mt-1">Garçons </h2>
+                            <div class="badge badge-pill badge-info">51%</div>
+                        </div>
+                        <p class="mt-2">.</p>
+                        <div class="d-lg-flex align-items-baseline justify-content-between mt-3">
+                            <div class="d-flex align-items-center">
+                                <div class="icon-bg-square">
+                                    <i class="fa fa-male fa-3x"></i>
+                                </div>
+                                <h1 class="text-dark font-weight-bold">60</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 d-flex grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body py-4">
+                        <div class="d-flex flex-wrap justify-content-between">
+                            <h2 class="mb-0 extra-large-title mt-1">Filles</h2>
+                            <div class="badge badge-pill badge-danger">34%</div>
+                        </div>
+                        <p class="mt-2">.</p>
+                        <div class="d-lg-flex align-items-baseline justify-content-between mt-3">
+                            <div class="d-flex align-items-center">
+                                <div class="icon-bg-square">
+                                    <i class="fa fa-female"></i>
+                                </div>
+                                <h1 class="text-dark font-weight-bold">40</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12 d-flex grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="d-lg-flex align-items-center justify-content-between">
+                                    <h3 class="text-dark card-title mb-0">Sales Status <span class="card-subtitle">Performance for Online revenue </span></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-xl-12">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5 class="card-subtitle-lg">Revenue for Last Month</h5>
+                                            <div class="dropdown">
+                                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="ion ion-md-settings settings-dropdown"></i>
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#"><i class="ion ion-md-create mr-1"></i> Edit</a>
+                                                    <a class="dropdown-item" href="#"><i class="ion ion-md-trash mr-1"></i>Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <canvas id="revenueChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-4 d-flex grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="text-dark card-title">Derniers inscrits</h3>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <td class="border-0 pt-0 pl-0">
+                                        <div class="d-flex">
+                                            <div class="mr-3">
+                                                <img class="img-sm rounded-circle mb-md-0" src="assets/images/avatar.png" alt="profile image">
+                                            </div>
+                                            <div>
+                                                <h6 class="font-weight-bold text-dark mb-1">Eliza Hawkins</h6>
+                                                <div>Grenada</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="border-0 pt-0">
+                                        <button type="button" class="btn btn-secondary btn-sm">More</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-0">
+                                        <div class="d-flex">
+                                            <div class="mr-3">
+                                                <img class="img-sm rounded-circle mb-md-0" src="https://www.bootstrapdash.com/demo/allurui/template/images/faces/face3.jpg" alt="profile image">
+                                            </div>
+                                            <div>
+                                                <h6 class="font-weight-bold text-dark mb-1">Emilie Bryan</h6>
+                                                <div>New Caledonia</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-light  btn-sm">More</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-0">
+                                        <div class="d-flex">
+                                            <div class="mr-3">
+                                                <img class="img-sm rounded-circle mb-md-0" src="https://www.bootstrapdash.com/demo/allurui/template/images/faces/face4.jpg" alt="profile image">
+                                            </div>
+                                            <div>
+                                                <h6 class="font-weight-bold text-dark mb-1">Frances Lynch</h6>
+                                                <div>Gabon</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-light  btn-sm">More</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-0">
+                                        <div class="d-flex">
+                                            <div class="mr-3">
+                                                <img class="img-sm rounded-circle mb-md-0" src="https://www.bootstrapdash.com/demo/allurui/template/images/faces/face5.jpg" alt="profile image">
+                                            </div>
+                                            <div>
+                                                <h6 class="font-weight-bold text-dark mb-1">Mamie Estrada</h6>
+                                                <div>Sri Lanka</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-light  btn-sm">More</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-0">
+                                        <div class="d-flex">
+                                            <div class="mr-3">
+                                                <img class="img-sm rounded-circle mb-md-0" src="https://www.bootstrapdash.com/demo/allurui/template/images/faces/face6.jpg" alt="profile image">
+                                            </div>
+                                            <div>
+                                                <h6 class="font-weight-bold text-dark mb-1">Derek Wallace</h6>
+                                                <div>Benin</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-light  btn-sm">More</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-0">
+                                        <div class="d-flex">
+                                            <div class="mr-3">
+                                                <img class="img-sm rounded-circle mb-md-0" src="https://www.bootstrapdash.com/demo/allurui/template/images/faces/face7.jpg" alt="profile image">
+                                            </div>
+                                            <div>
+                                                <h6 class="font-weight-bold text-dark mb-1">Irene Ingram</h6>
+                                                <div>Burundi</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-light  btn-sm">More</button>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8 d-flex grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="text-dark card-title">Derniers versements</h3>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class="border-0 pt-0 pl-0">
+                                        #
+                                    </th>
+                                    <th class="border-0 pt-0">
+                                        Nom & prenoms
+                                    </th>
+                                    <th class="border-0 pt-0">
+                                        Class
+                                    </th>
+                                    <th class="border-0 pt-0">
+                                        Date
+                                    </th>
+
+                                    <th class="border-0 pt-0">
+                                        Versments
+                                    </th>
+                                    <th class="border-0 pt-0">
+                                        Restants
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="pl-0">
+                                        01
+                                    </td>
+                                    <td>
+                                        Garrett Burton
+                                    </td>
+                                    <td>
+                                        Shoe
+                                    </td>
+                                    <td>
+                                        03 Jul 2019
+                                    </td>
+                                    <td>
+                                        2.000
+                                    </td>
+                                    <td>
+                                        2.000
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-0">
+                                        02
+                                    </td>
+                                    <td>
+                                        Willie Ballard
+                                    </td>
+                                    <td>
+                                        Bags
+                                    </td>
+                                    <td>
+                                        18 Jul 2019
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-light btn-sm">Pending</button>
+                                    </td>
+                                    <td>
+                                        No
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-0">
+                                        03
+                                    </td>
+                                    <td>
+                                        Harold Figueroa
+                                    </td>
+                                    <td>
+                                        Iphone
+                                    </td>
+                                    <td>
+                                        31 Jan 2019
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-sm">Failed</button>
+                                    </td>
+                                    <td>
+                                        Yes
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-0">
+                                        04
+                                    </td>
+                                    <td>
+                                        Marcus Mason
+                                    </td>
+                                    <td>
+                                        Watch
+                                    </td>
+                                    <td>
+                                        11 Sep 2019
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-light btn-sm">Pending</button>
+                                    </td>
+                                    <td>
+                                        No
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-0">
+                                        05
+                                    </td>
+                                    <td>
+                                        Mathilda Gibbs
+                                    </td>
+                                    <td>
+                                        Furniture
+                                    </td>
+                                    <td>
+                                        06 Feb 2019
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-light btn-sm">Pending</button>
+                                    </td>
+                                    <td>
+                                        Yes
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-0">
+                                        06
+                                    </td>
+                                    <td>
+                                        Timothy Stone
+                                    </td>
+                                    <td>
+                                        Imac
+                                    </td>
+                                    <td>
+                                        05 Dec 2019
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-sm">Failed</button>
+                                    </td>
+                                    <td>
+                                        Yes
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ absolute_url(asset('assets/js/Chart.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/js/dashboard.js')) }}"></script>
+{% endblock %}
