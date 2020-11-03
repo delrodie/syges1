@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Gestion des classes{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-xl-8 d-flex grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="text-dark card-title">Liste des classes</h3>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr class="text-center">
+                                    <th class="border-0 pt-0 pl-0">
+                                        #
+                                    </th>
+                                    <th class="border-0 pt-0">
+                                        Classe
+                                    </th>
+                                    <th class="border-0 pt-0">
+                                        Montant de la scolarité
+                                    </th>
+                                    <th class="border-0 pt-0">
+                                        Actions
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for classe in classes %}
+                                    <tr class="text-center">
+                                        <td class="pl-0">{{ loop.index }}</td>
+                                        <td>{{classe.libelle}}</td>
+                                        <td>{{classe.scolarite|number_format(0,'','.')}}</td>
+                                        <td><a href="{{ path('classe_edit', {'id': 'x'}) }}" title="Modification"><i class="fa fa-edit"></i></a></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 d-flex grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="text-dark card-title">Modification</h3>
+                        {{ include('classe/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+                        {{ include('classe/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

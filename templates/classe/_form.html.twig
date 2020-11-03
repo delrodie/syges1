@@ -1,0 +1,13 @@
+{{ form_start(form) }}
+    <div class="form-group">
+        {{ form_row(form.libelle) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(form.scolarite) }}
+    </div>
+    {{ form_widget(form) }}
+    <div class="text-right mt-5">
+        <a href="{{ path('classe_index') }}" class="btn btn-outline-dark">Annuler</a>
+        <button class="btn btn-secondary">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+{{ form_end(form) }}
