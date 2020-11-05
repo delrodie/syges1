@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Gestion des élèves{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="text-right">
+
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-6"><h4 class="card-title">Liste des élèves</h4></div>
+                    <div class="col-6 text-right">
+                        <a href="{{ path('eleve_new') }}" class="btn btn-social-icon-text btn-facebook"><i class="fa fa-plus-circle"></i>Ajouter un nouvel élève</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table" id="order-listing">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Matricule</th>
+                                    <th>Nom & prenoms</th>
+                                    <th>Date naissance</th>
+                                    <th>Lieu naissance</th>
+                                    <th>Sexe</th>
+                                    <th>Classe</th>
+                                    <th>actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for eleve in eleves %}
+                                    <tr>
+                                        <td>{{ loop.index }}</td>
+                                        <td>{{ eleve.matricule }}</td>
+                                        <td>{{ eleve.nom|upper }} {{ eleve.prenoms|title }}</td>
+                                        <td>{{ eleve.dateNaissance }}</td>
+                                        <td>{{ eleve.lieuNaissance|title }}</td>
+                                        <td>{{ eleve.sexe }}</td>
+                                        <td>{{ eleve.classe.libelle }}</td>
+                                        <td>
+                                            <a href="{{ path('eleve_show', {'id': eleve.id}) }}"><i class="fa fa-eye"></i></a> |
+                                            <a href="{{ path('eleve_edit', {'id': eleve.id}) }}"><i class="fa fa-edit"></i></a>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="8" class="text-center"><em>Aucun élève</em></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/css/dataTables.bootstrap4.css')) }}">
+    {{ parent() }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <scprit src="{{ absolute_url(asset('assets/js/jquery.dataTables.js')) }}"></scprit>
+    <scprit src="{{ absolute_url(asset('assets/js/dataTables.bootstrap4.js')) }}"></scprit>
+    <scprit src="{{ absolute_url(asset('assets/js/data-table.js')) }}"></scprit>
+{% endblock %}

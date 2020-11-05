@@ -8955,22 +8955,25 @@ textarea {
 }
 
 fieldset {
-    min-width: 0;
-    padding: 0;
-    margin: 0;
-    border: 0;
+    //min-width: 0;
+    //padding: 0;
+    //margin: 0;
+    //border: 0;
+    border-color: #ccc;
+    margin: 30px auto;
 }
 
 legend {
     display: block;
-    width: 100%;
-    max-width: 100%;
-    padding: 0;
+    //width: 100%;
+    //max-width: 100%;
+    padding: 5px 20px;
     margin-bottom: .5rem;
     font-size: 1.5rem;
     line-height: inherit;
     color: inherit;
     white-space: normal;
+    background-color: #ccc;
 }
 
 progress {
@@ -10368,10 +10371,10 @@ pre code {
     font-size: 0.875rem;
     font-weight: 400;
     line-height: 1;
-    color: #495057;
+    color: #1b1b1f;
     background-color: #ffffff;
     background-clip: padding-box;
-    border: 1px solid #ced4da;
+    border: 1px solid #323434;
     border-radius: 2px;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
@@ -22396,7 +22399,7 @@ select.border-dark.tt-hint:focus {
 }
 
 .form-group label {
-    font-size: 0.875rem;
+    font-size: 1rem;
     line-height: 1.4rem;
     vertical-align: top;
     margin-bottom: .5rem;
@@ -27992,7 +27995,7 @@ div.tagsinput span.tag a {
 .auth form .form-group .tt-hint {
     background: transparent;
     border-radius: 0;
-    font-size: .9375rem;
+    font-size: 1rem;
 }
 
 .auth form .auth-form-btn {

@@ -1,0 +1,128 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Gestion des élèves{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="text-right">
+
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-6"><h4 class="card-title">Profil</h4></div>
+                    <div class="col-6 text-right">
+                        <a href="{{ path('eleve_index') }}" class="btn btn-social-icon-text btn-google"><i class="fa fa-edit"></i>Modifier</a>
+                        <a href="{{ path('eleve_index') }}" class="btn btn-social-icon-text btn-facebook"><i class="fa fa-list"></i>Liste des élèves</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <fieldset class="mt-5">
+                            <legend>Elève</legend>
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <label for="">Matricule</label>
+                                    <input type="text" class="form-control" readonly value="{{ eleve.matricule }}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <label for="">Nom</label>
+                                    <input type="text" class="form-control" readonly value="{{ eleve.nom|upper }}" style="font-weight: bold;">
+                                </div>
+                                <div class="col-6">
+                                    <label for="">Prenoms</label>
+                                    <input type="text" class="form-control" readonly value="{{ eleve.prenoms|upper }}" style="font-weight: bold">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <label for="">Date de naissance</label>
+                                    <input type="text" class="form-control" readonly value="{{ eleve.dateNaissance }}" style="font-weight: bold">
+                                </div>
+                                <div class="col-6">
+                                    <label for="">Lieu de naissance</label>
+                                    <input type="text" class="form-control" readonly value="{{ eleve.lieuNaissance|upper }}" style="font-weight: bold">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <label for="">Sexe</label>
+                                    <input type="text" class="form-control" readonly value="{{ eleve.sexe }}" style="font-weight: bold">
+                                </div>
+                                <div class="col-6">
+                                    <label for="">Nationalité</label>
+                                    <input type="text" class="form-control" readonly value="{{ eleve.nationalite|upper }}" style="font-weight: bold">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <label for="">Domicile</label>
+                                    <input type="text" class="form-control" readonly value="{{ eleve.domicile|upper }}" style="font-weight: bold">
+                                </div>
+                                <div class="col-6">
+                                    <label for="">Classe</label>
+                                    <input type="text" class="form-control" readonly value="{{ eleve.classe.libelle|upper }}" style="font-weight: bold">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Parents</legend>
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <label for="">Nom & prénoms</label>
+                                    <input type="text" class="form-control" readonly value="{{ eleve.nomParent|upper }}" style="font-weight: bold">
+                                </div>
+                                <div class="col-6">
+                                    <label for="">Profession du parent</label>
+                                    <input type="text" class="form-control" readonly value="{{ eleve.professionParent|upper }}" style="font-weight: bold">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <label for="">Contact du parent</label>
+                                    <input type="text" class="form-control" readonly value="{{ eleve.contactParent|upper }}" style="font-weight: bold">
+                                </div>
+                                <div class="col-6">
+                                    <label for="">Residence du parent</label>
+                                    <input type="text" class="form-control" readonly value="{{ eleve.residence|upper }}" style="font-weight: bold">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Tuteur</legend>
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <label for="">Nomdu tuteur</label>
+                                    <input type="text" class="form-control" readonly value="{{ eleve.nomTuteur|upper }}" style="font-weight: bold">
+                                </div>
+                                <div class="col-6">
+                                    <label for="">Profession du tuteur</label>
+                                    <input type="text" class="form-control" readonly value="{{ eleve.professionTuteur|upper }}" style="font-weight: bold">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <label for="">Contact du tuteur</label>
+                                    <input type="text" class="form-control" readonly value="{{ eleve.contactTuteur }}" style="font-weight: bold">
+                                </div>
+                                <div class="col-6">
+                                    <label for="">Résidence du tuteur</label>
+                                    <input type="text" class="form-control" readonly value="{{ eleve.residenceTuteur|upper }}" style="font-weight: bold">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-12 text-right">
+                            {{ include('eleve/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

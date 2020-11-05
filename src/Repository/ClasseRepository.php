@@ -19,6 +19,11 @@ class ClasseRepository extends ServiceEntityRepository
         parent::__construct($registry, Classe::class);
     }
 
+    public function liste()
+    {
+        return $this->createQueryBuilder('c');
+    }
+
     // /**
     //  * @return Classe[] Returns an array of Classe objects
     //  */

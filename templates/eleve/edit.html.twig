@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Eleve{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="text-right">
+
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-6"><h4 class="card-title">FORMULAIRE D'ENREGISTREMENT</h4></div>
+                    <div class="col-6 text-right">
+                        <a href="{{ path('eleve_index') }}" class="btn btn-social-icon-text btn-facebook"><i class="fa fa-list"></i>Liste des élèves</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        {{ include('eleve/_form.html.twig', {'button_label': 'Modifier'}) }}
+                        {{ include('eleve/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
