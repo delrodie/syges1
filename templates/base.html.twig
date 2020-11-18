@@ -8,6 +8,7 @@
             <link rel="stylesheet" href="{{ absolute_url(asset('assets/css/ionicons.min.css')) }}">
             <link rel="stylesheet" href="{{ absolute_url(asset('assets/css/vendor.bundle.base.css')) }}">
             <link rel="stylesheet" href="{{ absolute_url(asset('assets/vendor/fontawesome-free/css/all.min.css')) }}">
+            <link rel="stylesheet" href="{{ absolute_url(asset('assets/vendor/sweetalert2/sweetalert2.min.css')) }}">
             <link rel="stylesheet" href="{{ absolute_url(asset('assets/css/style.css')) }}">
         {% endblock %}
     </head>
@@ -78,9 +79,9 @@
                             <p class="sidebar-title">FINANCE</p>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ path('inscription_index') }}">
                                 <i class="fa fa-money-bill-wave menu-icon"></i>
-                                <span class="menu-title">Scolarité</span>
+                                <span class="menu-title">Inscription</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -120,6 +121,7 @@
         </div>
         {% block javascripts %}
             <script src="{{ absolute_url(asset('assets/js/vendor.bundle.base.js')) }}"></script>
+            <script src="{{ absolute_url(asset('assets/vendor/sweetalert2/sweetalert2.min.js')) }}"></script>
             <script src="{{ absolute_url(asset('assets/js/template.js')) }}"></script>
         {% endblock %}
     </body>

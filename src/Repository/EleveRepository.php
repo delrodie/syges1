@@ -19,6 +19,11 @@ class EleveRepository extends ServiceEntityRepository
         parent::__construct($registry, Eleve::class);
     }
 
+    public function findEleve($eleve)
+    {
+        return $this->createQueryBuilder('e')->where('e.id = :eleve')->setParameter('eleve', $eleve);
+    }
+
     // /**
     //  * @return Eleve[] Returns an array of Eleve objects
     //  */

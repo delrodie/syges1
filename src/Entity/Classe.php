@@ -34,9 +34,15 @@ class Classe
      */
     private $eleves;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Inscription::class, mappedBy="classe")
+     */
+    private $inscriptions;
+
     public function __construct()
     {
         $this->eleves = new ArrayCollection();
+        $this->inscriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -92,6 +98,36 @@ class Classe
             // set the owning side to null (unless already changed)
             if ($elefe->getClasse() === $this) {
                 $elefe->setClasse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Inscription[]
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function addInscription(Inscription $inscription): self
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions[] = $inscription;
+            $inscription->setClasse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Inscription $inscription): self
+    {
+        if ($this->inscriptions->removeElement($inscription)) {
+            // set the owning side to null (unless already changed)
+            if ($inscription->getClasse() === $this) {
+                $inscription->setClasse(null);
             }
         }
 

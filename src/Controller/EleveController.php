@@ -6,6 +6,7 @@ use App\Entity\Eleve;
 use App\Form\EleveType;
 use App\Repository\EleveRepository;
 use App\Utilities\GestionEleve;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,14 @@ use Symfony\Component\Validator\Constraints\Date;
 class EleveController extends AbstractController
 {
     private $gestionEleve;
+    private $eleveRepository;
+    private $em;
 
-    public function __construct(GestionEleve $gestionEleve)
+    public function __construct(GestionEleve $gestionEleve, EleveRepository $eleveRepository, EntityManagerInterface $em)
     {
         $this->gestionEleve = $gestionEleve;
+        $this->eleveRepository = $eleveRepository;
+        $this->em = $em;
     }
 
     /**
@@ -46,6 +51,21 @@ class EleveController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            // Verification de la non existence de l'eleve dans le systeme
+            $verif = $this->eleveRepository->findOneBy([
+                'nom' => $eleve->getNom(),
+                'prenoms' => $eleve->getPrenoms(),
+                'dateNaissance' => $eleve->getDateNaissance(),
+                'lieuNaissance' => $eleve->getLieuNaissance(),
+                'nomParent' => $eleve->getNomParent(),
+                'contactParent' => $eleve->getContactParent()
+            ]);
+            if ($verif){
+                $this->addFlash('danger', "Echèc, cet élève existe déjà dans le système");
+                return  $this->redirectToRoute('eleve_new');
+            }
+
             $matricule =  $this->gestionEleve->matricule();
             $eleve->setMatricule($matricule);
             $entityManager->persist($eleve);
@@ -53,7 +73,7 @@ class EleveController extends AbstractController
 
             $this->addFlash('success', "L'élève a été enregistré avec succès");
 
-            return $this->redirectToRoute('eleve_index');
+            return $this->redirectToRoute('inscription_new',['eleve'=>$eleve->getId()]);
         }
 
         return $this->render('eleve/new.html.twig', [
@@ -67,8 +87,17 @@ class EleveController extends AbstractController
      */
     public function show(Eleve $eleve): Response
     {
+        $annee= $this->gestionEleve->annee();
+        $inscription = $this->em->getRepository("App:Inscription")->findOneBy([
+            'eleve'=>$eleve->getId(),
+            'annee' => $annee
+        ]);
+        //dd($inscription);
         return $this->render('eleve/show.html.twig', [
             'eleve' => $eleve,
+            'bordereaux'=> $this->gestionEleve->bordereau($eleve->getId()),
+            'annee' => $annee,
+            'inscription' => $inscription
         ]);
     }
 

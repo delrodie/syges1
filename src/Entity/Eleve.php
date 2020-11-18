@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EleveRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -106,6 +108,22 @@ class Eleve
      * @ORM\ManyToOne(targetEntity=Classe::class, inversedBy="eleves")
      */
     private $classe;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Inscription::class, mappedBy="eleve")
+     */
+    private $inscriptions;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Scolarite::class, mappedBy="eleve")
+     */
+    private $scolarites;
+
+    public function __construct()
+    {
+        $this->inscriptions = new ArrayCollection();
+        $this->scolarites = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -324,6 +342,74 @@ class Eleve
     public function setClasse(?Classe $classe): self
     {
         $this->classe = $classe;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Inscription[]
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function addInscription(Inscription $inscription): self
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions[] = $inscription;
+            $inscription->setEleve($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Inscription $inscription): self
+    {
+        if ($this->inscriptions->removeElement($inscription)) {
+            // set the owning side to null (unless already changed)
+            if ($inscription->getEleve() === $this) {
+                $inscription->setEleve(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getNom().' '.$this->getPrenoms();
+    }
+
+    /**
+     * @return Collection|Scolarite[]
+     */
+    public function getScolarites(): Collection
+    {
+        return $this->scolarites;
+    }
+
+    public function addScolarite(Scolarite $scolarite): self
+    {
+        if (!$this->scolarites->contains($scolarite)) {
+            $this->scolarites[] = $scolarite;
+            $scolarite->setEleve($this);
+        }
+
+        return $this;
+    }
+
+    public function removeScolarite(Scolarite $scolarite): self
+    {
+        if ($this->scolarites->removeElement($scolarite)) {
+            // set the owning side to null (unless already changed)
+            if ($scolarite->getEleve() === $this) {
+                $scolarite->setEleve(null);
+            }
+        }
 
         return $this;
     }

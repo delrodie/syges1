@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{% block title %}SYGES::{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+            <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+            <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.bootstrap4.min.css">
+        {% endblock %}
+    </head>
+    <body>
+    {% block body %}{% endblock %}
+
+    {% block javascripts %}
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <scprit src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></scprit>
+        <scprit src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></scprit>
+        <scprit src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></scprit>
+        <scprit src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.bootstrap4.min.js"></scprit>
+        <scprit src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></scprit>
+        <scprit src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></scprit>
+        <scprit src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></scprit>
+        <scprit src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></scprit>
+        <scprit src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></scprit>
+        <scprit src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.colVis.min.js"></scprit>
+        <script>
+            $(document).ready(function() {
+                var table = $('#example').DataTable( {
+                    lengthChange: false,
+                    buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+                } );
+
+                table.buttons().container()
+                    .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+            } );
+        </script>
+    {% endblock %}
+    </body>
+</html>

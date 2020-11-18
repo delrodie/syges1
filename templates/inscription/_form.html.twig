@@ -1,0 +1,25 @@
+{{ form_start(form) }}
+    <div class="form-group">
+        <label for="">Eleve</label>
+        {{ form_widget(form.eleve,{'attr':{'style':"font-size:1.2rem; color:#000"}}) }}
+    </div>
+    <div class="form-group">
+        <label for="">Classe</label>
+        <select name="inscription_classe" id="inscription_classe" class="form-control" style="font-size: 1.2rem; color: #000">
+            <option value="{{ eleve.classe.id }}" selected>{{ eleve.classe.libelle }}</option>
+            <option value=""></option>
+            {% for classe in classes %}
+                <option value="{{ classe.id }}">{{ classe.libelle }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="">Montant versé</label>
+        {{ form_widget(form.verse,{'attr':{'style':"font-size:1.2rem; color:#000"}}) }}
+        <em style="color: darkred; font-size: 0.9rem;">Veuillez renseigner ce champ sans espace ni point</em>
+    </div>
+    {{ form_widget(form) }}
+    <div class="text-right mt-3">
+        <button class="btn btn-secondary">{{ button_label|default('Valider') }}</button>
+    </div>
+{{ form_end(form) }}

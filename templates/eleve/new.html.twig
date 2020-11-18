@@ -17,6 +17,17 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
+                        {% for label, messages in app.flashes %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ label }}" style="font-size: 1.3rem;">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
                         {{ include('eleve/_form.html.twig') }}
                     </div>
                 </div>
@@ -24,5 +35,3 @@
         </div>
     </div>
 {% endblock %}
-
-
