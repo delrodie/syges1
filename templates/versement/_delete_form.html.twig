@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('versement_delete', {'id': versement.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer ce versement?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ versement.id) }}">
+    <button class="btn btn-danger mt-5">Supprimer</button>
+</form>

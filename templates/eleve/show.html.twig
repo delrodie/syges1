@@ -44,8 +44,9 @@
                                                 <a href="{{ path('eleve_edit', {'id': eleve.id}) }}"><button class="btn btn-success mr-1">Modifier</button></a>
                                                 {% if inscription is empty %}
                                                     <a href="{{ path('inscription_new', {'eleve': eleve.id}) }}"><button class="btn btn-outline-danger mr-1">Inscription</button></a>
+                                                {% else %}
+                                                    <a href="{{ path('versement_new', {'eleve': eleve.id}) }}"><button class="btn btn-secondary">Versement</button></a>
                                                 {% endif %}
-                                                <a href="#"><button class="btn btn-secondary">Versement</button></a>
                                             </div>
                                         </div>
                                         <div class="border-bottom py-4">
@@ -138,18 +139,22 @@
                                                 {% for bordereau in bordereaux %}
                                                     <tr>
                                                         <td>#{{ loop.index }}</td>
-                                                        <td class="text-center">{{ bordereau.date|date('d-m-Y') }}</td>
+                                                        <td class="text-center">{{ bordereau.date|date('d-m-Y H:i:s') }}</td>
                                                         <td class="text-center">{{ bordereau.recu }}</td>
                                                         <td class="text-right pr-1">{{ bordereau.verse|number_format(0,'','.') }}</td>
                                                         <td class="text-right pr-1">{{ bordereau.reste|number_format(0,'','.') }}</td>
                                                         {% if bordereau.type == 'inscription' %}
                                                             <td class="text-center"><a href="{{ path('inscription_show', {'id': bordereau.id}) }}"><i class="fa fa-print"></i></a></td>
+                                                        {% elseif bordereau.type == 'versement' %}
+                                                            <td class="text-center"><a href="{{ path('versement_show', {'id': bordereau.id}) }}"><i class="fa fa-print"></i></a></td>
+                                                        {% else %}
+                                                            <td class="text-center"><i class="fa fa-eraser"></i></td>
                                                         {% endif %}
 
                                                     </tr>
                                                 {% else %}
                                                     <tr>
-                                                        <td colspan="6" class="mt-3"><em>Aucune opération effectuée cette année academique </em></td>
+                                                        <td colspan="6" class="mt-3 text-center"><em>Aucune opération effectuée cette année academique </em></td>
                                                     </tr>
                                                 {% endfor %}
                                                 </tbody>

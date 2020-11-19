@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Gestion des versments{% endblock %}
+
+
+
+{% block body %}
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-12"><h4 class="card-title">Liste des versements</h4></div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table id="order-listing"  class="table" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Id</th>
+                                    <th class="text-center">Date</th>
+                                    <th class="text-center">Classe</th>
+                                    <th class="text-center">Elève</th>
+                                    <th class="text-center">Montant versé</th>
+                                    <th class="text-center">Montant restant</th>
+                                    <th class="text-center">actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for versement in versements %}
+                                    <tr class="text-center">
+                                        <td class="text-center"># {{ loop.index }}</td>
+                                        <td class="text-center">{{ versement.createdAt|date('Y-m-d H:i:s') }}</td>
+                                        <td class="text-center">{{ versement.classe.libelle }}</td>
+                                        <td class="text-left">{{ versement.eleve.nom|upper }} {{ versement.eleve.prenoms|title }}</td>
+                                        <td class="text-right pr-1">{{ versement.verse|number_format(0,'','.') }}</td>
+                                        <td class="text-right pr-1">{{ versement.restant|number_format(0,'','.') }}</td>
+                                        <td class="text-center">
+                                            <a href="{{ path('versement_show', {'id': versement.id}) }}"><i class="fa fa-eye"></i></a> |
+                                            <a href="{{ path('versement_edit', {'id': versement.id}) }}"><i class="fa fa-edit"></i></a>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6" class="text-center"><em>Aucun versement n'a été effectué cette année</em></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/css/dataTables.bootstrap4.css')) }}">
+    {{ parent() }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <scprit src="{{ absolute_url(asset('assets/js/jquery.dataTables.js')) }}"></scprit>
+    <scprit src="{{ absolute_url(asset('assets/js/dataTables.bootstrap4.js')) }}"></scprit>
+    <scprit src="{{ absolute_url(asset('assets/js/data-table.js')) }}"></scprit>
+{% endblock %}
+

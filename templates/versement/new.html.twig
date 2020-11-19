@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} Gestion des inscriptions{% endblock %}
+{% block title %}{{ parent() }} Gestion des versments{% endblock %}
 
 {% block body %}
     <div class="content-wrapper">
@@ -42,15 +42,15 @@
                                     <div>
                                         <div class="row">
                                             <div class="col-6">Scolarité:</div>
-                                            <div class="col-6">{{ eleve.classe.scolarite|number_format(0,'','.') }} FCFA</div>
+                                            <div class="col-6">{{ scolarite.total|number_format(0,'','.') }} FCFA</div>
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col-6">Total versé:</div>
-                                            <div class="col-6">{{ 0|number_format(0,'','.') }} </div>
+                                            <div class="col-6">{{ scolarite.verse|number_format(0,'','.') }} </div>
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col-6">Total restant:</div>
-                                            <div class="col-6">{{ eleve.classe.scolarite|number_format(0,'','.') }} FCFA</div>
+                                            <div class="col-6">{{ scolarite.restant |number_format(0,'','.') }} FCFA</div>
                                         </div>
                                     </div>
                                 </div>
@@ -63,40 +63,40 @@
                                 </div>
                                 <div class="py-4">
                                     <p class="clearfix">
-                                      <span class="float-left">Nom</span>
-                                      <span class="float-right text-muted">{{ eleve.nom|upper }}</span>
+                                        <span class="float-left">Nom</span>
+                                        <span class="float-right text-muted">{{ eleve.nom|upper }}</span>
                                     </p>
                                     <p class="clearfix">
-                                      <span class="float-left">Nom</span>
-                                      <span class="float-right text-muted">{{ eleve.prenoms|title }}</span>
+                                        <span class="float-left">Nom</span>
+                                        <span class="float-right text-muted">{{ eleve.prenoms|title }}</span>
                                     </p>
                                     <p class="clearfix">
-                                      <span class="float-left">Date de naissance</span>
-                                      <span class="float-right text-muted">{{ eleve.dateNaissance }}</span>
+                                        <span class="float-left">Date de naissance</span>
+                                        <span class="float-right text-muted">{{ eleve.dateNaissance }}</span>
                                     </p>
                                     <p class="clearfix">
-                                      <span class="float-left">Lieu de naissance</span>
-                                      <span class="float-right text-muted">{{ eleve.lieuNaissance }}</span>
+                                        <span class="float-left">Lieu de naissance</span>
+                                        <span class="float-right text-muted">{{ eleve.lieuNaissance }}</span>
                                     </p>
                                     <p class="clearfix">
-                                      <span class="float-left">Sexe</span>
-                                      <span class="float-right text-muted">{{ eleve.sexe }}</span>
+                                        <span class="float-left">Sexe</span>
+                                        <span class="float-right text-muted">{{ eleve.sexe }}</span>
                                     </p>
                                     <p class="clearfix">
-                                      <span class="float-left">Nom Parent</span>
-                                      <span class="float-right text-muted">{{ eleve.nomParent|title }}</span>
+                                        <span class="float-left">Nom Parent</span>
+                                        <span class="float-right text-muted">{{ eleve.nomParent|title }}</span>
                                     </p>
                                     <p class="clearfix">
-                                      <span class="float-left">Contact Parent</span>
-                                      <span class="float-right text-muted">{{ eleve.contactParent }}</span>
+                                        <span class="float-left">Contact Parent</span>
+                                        <span class="float-right text-muted">{{ eleve.contactParent }}</span>
                                     </p>
                                     <p class="clearfix">
-                                      <span class="float-left">Nom tuteur</span>
-                                      <span class="float-right text-muted">{{ eleve.nomTuteur|title }}</span>
+                                        <span class="float-left">Nom tuteur</span>
+                                        <span class="float-right text-muted">{{ eleve.nomTuteur|title }}</span>
                                     </p>
                                     <p class="clearfix">
-                                      <span class="float-left">Contact tuteur</span>
-                                      <span class="float-right text-muted">{{ eleve.contactTuteur }}</span>
+                                        <span class="float-left">Contact tuteur</span>
+                                        <span class="float-right text-muted">{{ eleve.contactTuteur }}</span>
                                     </p>
                                 </div>
                                 <button class="btn btn-secondary btn-block mb-2">Voir détails</button>
@@ -104,11 +104,11 @@
                             <div class="col-lg-8">
                                 <div class="d-block d-md-flex justify-content-between mt-4 mt-md-0">
                                     <div class="text-center mt-4 mt-md-0">
-                                        <h2>FORMULAIRE D'INSCRIPTION</h2>
+                                        <h2>FORMULAIRE DE VERSEMENT</h2>
                                     </div>
                                 </div>
                                 <div class="mt-4 py-2 border-top">
-                                    {{ include('inscription/_form.html.twig') }}
+                                    {{ include('versement/_form.html.twig') }}
                                 </div>
                             </div>
                         </div>

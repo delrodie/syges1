@@ -81,16 +81,19 @@ class GestionEleve
     }
 
     /**
-     * Generation du recu
+     * @param null $versement
      * @return string
      */
-    public function recuInscription():string
+    public function generationRecu($versement = null):string
     {
-        $inscription = $this->inscriptionRepository->findOneBy([],['id'=>"DESC"]);
-        if (!$inscription){
-            $id = 1;
+        if (!$versement){
+            $inscription = $this->inscriptionRepository->findOneBy([],['id'=>"DESC"]);
+            if (!$inscription)$id = 1;
+            else $id = $inscription->getId() + 1;
         }else{
-            $id = $inscription->getId() + 1;
+            $versementEntity = $this->em->getRepository("App:Versement")->findOneBy([],['id'=>"DESC"]);
+            if (!$versementEntity) $id = 1;
+            else $id = $versementEntity->getId() + 1;
         }
 
         $recu = $this->recu($id);
@@ -129,9 +132,30 @@ class GestionEleve
             $this->em->flush();
 
             return true;
+        }elseif ($versementID){
+            $versement = $this->em->getRepository("App:Versement")->findOneBy(['id'=>$versementID]);
+            if (!$versement) return false;
+
+            // Recherche de la scolarité concernée
+            $scolarite = $this->em->getRepository("App:Scolarite")->findOneBy([
+                'eleve'=>$versement->getEleve()->getId(),
+                'annee' => $this->annee()
+            ]);
+            if (!$scolarite) return false;
+
+            $total_verse = $versement->getVerse() + $scolarite->getVerse();
+            $total_restant = $scolarite->getRestant() - $versement->getVerse();
+            $scolarite->setRestant($total_restant);
+            $scolarite->setVerse($total_verse);
+            if ($total_restant === 0) $scolarite->setStatut(true);
+
+            $this->em->flush();
+
+            return true;
+        }else{
+            return false;
         }
 
-        return false;
     }
 
     /**
@@ -193,6 +217,17 @@ class GestionEleve
                 'id' => $inscription->getId(),
             ];
             $i = 1;
+        }
+        $versements = $this->em->getRepository("App:Versement")->findBy(['eleve'=>$eleve, 'annee'=>$this->annee()]);
+        foreach ($versements as $versement){
+            $bordereaux[$i++]=[
+                'date' => $versement->getCreatedAt(),
+                'recu' => $versement->getNumero(),
+                'verse' => $versement->getVerse(),
+                'reste' => $versement->getRestant(),
+                'type' => 'versement',
+                'id'=> $versement->getId()
+            ];
         }
 
 

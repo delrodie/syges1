@@ -119,10 +119,16 @@ class Eleve
      */
     private $scolarites;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Versement::class, mappedBy="eleve")
+     */
+    private $versements;
+
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
         $this->scolarites = new ArrayCollection();
+        $this->versements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -408,6 +414,36 @@ class Eleve
             // set the owning side to null (unless already changed)
             if ($scolarite->getEleve() === $this) {
                 $scolarite->setEleve(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Versement[]
+     */
+    public function getVersements(): Collection
+    {
+        return $this->versements;
+    }
+
+    public function addVersement(Versement $versement): self
+    {
+        if (!$this->versements->contains($versement)) {
+            $this->versements[] = $versement;
+            $versement->setEleve($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVersement(Versement $versement): self
+    {
+        if ($this->versements->removeElement($versement)) {
+            // set the owning side to null (unless already changed)
+            if ($versement->getEleve() === $this) {
+                $versement->setEleve(null);
             }
         }
 

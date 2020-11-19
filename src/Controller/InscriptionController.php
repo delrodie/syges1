@@ -55,7 +55,7 @@ class InscriptionController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             $annee = $this->gestionEleve->annee();
-            $recu = $this->gestionEleve->recuInscription();
+            $recu = $this->gestionEleve->generationRecu();
 
             //verification de la non inscription de l'eleve dans l'année encours
             $verif_inscription = $this->inscriptionReposiroty->findOneBy(['eleve'=>$eleve, 'annee'=>$annee]);
@@ -185,7 +185,7 @@ class InscriptionController extends AbstractController
             $entityManager->remove($inscription);
             $entityManager->flush();
 
-            $this->addFlash('success', "L'inscription de l'élève a été effectuée avec succès!");
+            $this->addFlash('success', "L'inscription de l'élève a été supprimée avec succès!");
         }
 
         return $this->redirectToRoute('eleve_show',['id'=>$eleve]);
