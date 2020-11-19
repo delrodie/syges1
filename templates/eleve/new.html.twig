@@ -3,35 +3,62 @@
 {% block title %}{{ parent() }} Gestion des élèves{% endblock %}
 
 {% block body %}
-    <div class="content-wrapper">
-        <div class="card">
-            <div class="text-right">
-
-            </div>
-            <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-6"><h4 class="card-title">Formulaire d'enregistrement</h4></div>
-                    <div class="col-6 text-right">
-                        <a href="{{ path('eleve_index') }}" class="btn btn-social-icon-text btn-facebook"><i class="fa fa-list"></i>Liste des élèves</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        {% for label, messages in app.flashes %}
-                            {% for message in messages %}
-                                <div class="alert alert-{{ label }}" style="font-size: 1.3rem;">
-                                    {{ message }}
-                                </div>
-                            {% endfor %}
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        {{ include('eleve/_form.html.twig') }}
-                    </div>
+    <div class="content-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">Formulaire d'enregistrement des élèves</h4>
                 </div>
             </div>
         </div>
+        <div class="row mb-3">
+            <div class="col-12 text-right">
+                <a href="{{ path('eleve_index') }}" class="btn btn-primary" ><i class="fa fa-list"></i> Liste des élèves</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}" style="font-size: 1.3rem;">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                {{ include('eleve/_form.html.twig') }}
+            </div>
+        </div>
     </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css')) }}">
+    <style>
+        .select select option{
+            color: black;
+        }
+        .formulaire input, select{
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+    </style>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')) }}"></script>
+    <script>
+        $().ready(function (t) {
+            //t("#eleve_dateNaissance").bootstrapMaterialDatePicker({weekStart:0,time:!1})
+            t("#eleve_dateNaissance").datepicker({
+                format: "yyyy-mm-dd",
+                locale: 'fr-FR',
+                autoclose: !0
+            })
+        })
+    </script>
 {% endblock %}

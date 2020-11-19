@@ -3,7 +3,7 @@
 {% block title %}Edit Eleve{% endblock %}
 
 {% block body %}
-    <div class="content-wrapper">
+    <div class="content-fluid">
         <div class="card">
             <div class="text-right">
 
@@ -24,4 +24,32 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css')) }}">
+    <style>
+        .select select option{
+            color: black;
+        }
+        .formulaire input, select{
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+    </style>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')) }}"></script>
+    <script>
+        $().ready(function (t) {
+            //t("#eleve_dateNaissance").bootstrapMaterialDatePicker({weekStart:0,time:!1})
+            t("#eleve_dateNaissance").datepicker({
+                format: "yyyy-mm-dd",
+                locale: 'fr-FR',
+                autoclose: !0
+            })
+        })
+    </script>
 {% endblock %}

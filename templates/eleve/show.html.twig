@@ -3,164 +3,159 @@
 {% block title %}{{ parent() }} Gestion des élèves{% endblock %}
 
 {% block body %}
-    <div class="content-wrapper">
-        <div class="card">
-            <div class="text-right">
-
+    <div class="content-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">Profile</h4>
+                </div>
             </div>
+        </div>
+        <div class="card">
             <div class="card-body">
                 <div class="row mb-3">
-                    <div class="col-6"><h4 class="card-title">Profil</h4></div>
-                    <div class="col-6 text-right">
-                        <a href="{{ path('eleve_index') }}" class="btn btn-social-icon-text btn-facebook"><i class="fa fa-list"></i>Liste des élèves</a>
+                    <div class="col-12 text-right">
+                        <a href="{{ path('eleve_index') }}" class="btn btn-primary"><i class="fa fa-list"></i> Liste des élèves</a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
+                        {% for label, messages in app.flashes %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ label }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
                         <div class="card">
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12">
-                                        {% for label, messages in app.flashes %}
-                                            {% for message in messages %}
-                                                <div class="alert alert-{{ label }}">
-                                                    {{ message }}
-                                                </div>
-                                            {% endfor %}
-                                        {% endfor %}
+                                <div class="border-bottom text-center pb-4">
+                                    <img src="{{ absolute_url(asset('assets/avatar.png')) }}" alt="profile" class="img-lg rounded-circle mb-3" width="80"/>
+                                    <div class="mb-3">
+                                        <h3>{{ eleve.nom|upper }} {{ eleve.prenoms|title }}</h3>
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <h5 class="mb-0 mr-2 text-muted">{{ eleve.matricule }}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <a href="{{ path('eleve_edit', {'id': eleve.id}) }}"><button class="btn btn-primary mr-1">Modifier</button></a>
+                                        {% if inscription is empty %}
+                                            <a href="{{ path('inscription_new', {'eleve': eleve.id}) }}"><button class="btn btn-outline-primary text-white mr-1">Inscription</button></a>
+                                        {% else %}
+                                            <a href="{{ path('versement_new', {'eleve': eleve.id}) }}"><button class="btn btn-info text-white">Versement</button></a>
+                                        {% endif %}
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="border-bottom text-center pb-4">
-                                            <img src="{{ absolute_url(asset('assets/images/avatar.png')) }}" alt="profile" class="img-lg rounded-circle mb-3"/>
-                                            <div class="mb-3">
-                                                <h3>{{ eleve.nom|upper }} {{ eleve.prenoms|title }}</h3>
-                                                <div class="d-flex align-items-center justify-content-center">
-                                                    <h5 class="mb-0 mr-2 text-muted">{{ eleve.matricule }}</h5>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-center">
-                                                <a href="{{ path('eleve_edit', {'id': eleve.id}) }}"><button class="btn btn-success mr-1">Modifier</button></a>
-                                                {% if inscription is empty %}
-                                                    <a href="{{ path('inscription_new', {'eleve': eleve.id}) }}"><button class="btn btn-outline-danger mr-1">Inscription</button></a>
+                                <div class="border-bottom py-4">
+                                    <div>
+                                        <div class="row">
+                                            <div class="col-6">Scolarité:</div>
+                                            <div class="col-6 text-white">{{ eleve.classe.scolarite|number_format(0,'','.') }} FCFA</div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            {% set verse = 0 %} {% set reste = 0 %}
+                                            <div class="col-6">Total versé:</div>
+                                            {% for scolarite in eleve.scolarites %}
+                                                {% set verse = verse + scolarite.verse %}
+                                                {% set reste = reste + scolarite.restant %}
+                                            {% endfor %}
+                                            <div class="col-6 text-white">{{ verse|number_format(0,'','.') }} FCFA</div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-6">Total restant:</div>
+                                            <div class="col-6 text-white">{{ reste|number_format(0,'','.') }} FCFA</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="py-4">
+                                    <p class="clearfix">
+                                        <span class="float-left">Nom</span>
+                                        <span class="float-right text-white">{{ eleve.nom|upper }}</span>
+                                    </p>
+                                    <p class="clearfix">
+                                        <span class="float-left">Nom</span>
+                                        <span class="float-right text-white">{{ eleve.prenoms|title }}</span>
+                                    </p>
+                                    <p class="clearfix">
+                                        <span class="float-left">Date de naissance</span>
+                                        <span class="float-right text-white">{{ eleve.dateNaissance }}</span>
+                                    </p>
+                                    <p class="clearfix">
+                                        <span class="float-left">Lieu de naissance</span>
+                                        <span class="float-right text-white">{{ eleve.lieuNaissance }}</span>
+                                    </p>
+                                    <p class="clearfix">
+                                        <span class="float-left">Sexe</span>
+                                        <span class="float-right text-white">{{ eleve.sexe }}</span>
+                                    </p>
+                                    <p class="clearfix">
+                                        <span class="float-left">Nom Parent</span>
+                                        <span class="float-right text-white">{{ eleve.nomParent|title }}</span>
+                                    </p>
+                                    <p class="clearfix">
+                                        <span class="float-left">Contact Parent</span>
+                                        <span class="float-right text-white">{{ eleve.contactParent }}</span>
+                                    </p>
+                                    <p class="clearfix">
+                                        <span class="float-left">Nom tuteur</span>
+                                        <span class="float-right text-white">{{ eleve.nomTuteur|title }}</span>
+                                    </p>
+                                    <p class="clearfix">
+                                        <span class="float-left">Contact tuteur</span>
+                                        <span class="float-right text-white">{{ eleve.contactTuteur }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-block d-md-flex justify-content-between mt-4 mt-md-0">
+                                    <div class="text-center mt-4 mt-md-0">
+                                        <h2>LISTE DES OPERATIONS</h2>
+                                    </div>
+                                </div>
+                                <div class="mt-4 py-2 border-top">
+                                    <table id="datatable-buttons" class="table table-striped table-bordered text-white" cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">ID</th>
+                                            <th class="text-center">DATE</th>
+                                            <th class="text-center">RECU N°</th>
+                                            <th class="text-center">VERSE</th>
+                                            <th class="text-center">RESTE</th>
+                                            <th class="text-center">ACTIONS</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for bordereau in bordereaux %}
+                                            <tr>
+                                                <td>#{{ loop.index }}</td>
+                                                <td class="text-center">{{ bordereau.date|date('d-m-Y H:i:s') }}</td>
+                                                <td class="text-center">{{ bordereau.recu }}</td>
+                                                <td class="text-right pr-1">{{ bordereau.verse|number_format(0,'','.') }}</td>
+                                                <td class="text-right pr-1">{{ bordereau.reste|number_format(0,'','.') }}</td>
+                                                {% if bordereau.type == 'inscription' %}
+                                                    <td class="text-center"><a href="{{ path('inscription_show', {'id': bordereau.id}) }}"><i class="fa fa-print"></i></a></td>
+                                                {% elseif bordereau.type == 'versement' %}
+                                                    <td class="text-center"><a href="{{ path('versement_show', {'id': bordereau.id}) }}"><i class="fa fa-print"></i></a></td>
                                                 {% else %}
-                                                    <a href="{{ path('versement_new', {'eleve': eleve.id}) }}"><button class="btn btn-secondary">Versement</button></a>
+                                                    <td class="text-center"><i class="fa fa-eraser"></i></td>
                                                 {% endif %}
-                                            </div>
-                                        </div>
-                                        <div class="border-bottom py-4">
-                                            <div>
-                                                <div class="row">
-                                                    <div class="col-6">Scolarité:</div>
-                                                    <div class="col-6">{{ eleve.classe.scolarite|number_format(0,'','.') }} FCFA</div>
-                                                </div>
-                                                <div class="row mt-3">
-                                                    {% set verse = 0 %} {% set reste = 0 %}
-                                                    <div class="col-6">Total versé:</div>
-                                                    {% for scolarite in eleve.scolarites %}
-                                                        {% set verse = verse + scolarite.verse %}
-                                                        {% set reste = reste + scolarite.restant %}
-                                                    {% endfor %}
-                                                    <div class="col-6">{{ verse|number_format(0,'','.') }} FCFA</div>
-                                                </div>
-                                                <div class="row mt-3">
-                                                    <div class="col-6">Total restant:</div>
-                                                    <div class="col-6">{{ reste|number_format(0,'','.') }} FCFA</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="border-bottom py-4">
-                                            <div class="d-flex">
-                                                <div class="progress progress-md flex-grow">
-                                                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100" style="width: 100%" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="py-4">
-                                            <p class="clearfix">
-                                                <span class="float-left">Nom</span>
-                                                <span class="float-right text-muted">{{ eleve.nom|upper }}</span>
-                                            </p>
-                                            <p class="clearfix">
-                                                <span class="float-left">Nom</span>
-                                                <span class="float-right text-muted">{{ eleve.prenoms|title }}</span>
-                                            </p>
-                                            <p class="clearfix">
-                                                <span class="float-left">Date de naissance</span>
-                                                <span class="float-right text-muted">{{ eleve.dateNaissance }}</span>
-                                            </p>
-                                            <p class="clearfix">
-                                                <span class="float-left">Lieu de naissance</span>
-                                                <span class="float-right text-muted">{{ eleve.lieuNaissance }}</span>
-                                            </p>
-                                            <p class="clearfix">
-                                                <span class="float-left">Sexe</span>
-                                                <span class="float-right text-muted">{{ eleve.sexe }}</span>
-                                            </p>
-                                            <p class="clearfix">
-                                                <span class="float-left">Nom Parent</span>
-                                                <span class="float-right text-muted">{{ eleve.nomParent|title }}</span>
-                                            </p>
-                                            <p class="clearfix">
-                                                <span class="float-left">Contact Parent</span>
-                                                <span class="float-right text-muted">{{ eleve.contactParent }}</span>
-                                            </p>
-                                            <p class="clearfix">
-                                                <span class="float-left">Nom tuteur</span>
-                                                <span class="float-right text-muted">{{ eleve.nomTuteur|title }}</span>
-                                            </p>
-                                            <p class="clearfix">
-                                                <span class="float-left">Contact tuteur</span>
-                                                <span class="float-right text-muted">{{ eleve.contactTuteur }}</span>
-                                            </p>
-                                        </div>
-                                        <button class="btn btn-secondary btn-block mb-2">Voir détails</button>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <div class="d-block d-md-flex justify-content-between mt-4 mt-md-0">
-                                            <div class="text-center mt-4 mt-md-0">
-                                                <h2>LISTE DES OPERATIONS</h2>
-                                            </div>
-                                        </div>
-                                        <div class="mt-4 py-2 border-top">
-                                            <table class="table">
-                                                <thead>
-                                                <tr>
-                                                    <th class="text-center">ID</th>
-                                                    <th class="text-center">DATE</th>
-                                                    <th class="text-center">RECU N°</th>
-                                                    <th class="text-center">VERSE</th>
-                                                    <th class="text-center">RESTE</th>
-                                                    <th class="text-center">ACTIONS</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                {% for bordereau in bordereaux %}
-                                                    <tr>
-                                                        <td>#{{ loop.index }}</td>
-                                                        <td class="text-center">{{ bordereau.date|date('d-m-Y H:i:s') }}</td>
-                                                        <td class="text-center">{{ bordereau.recu }}</td>
-                                                        <td class="text-right pr-1">{{ bordereau.verse|number_format(0,'','.') }}</td>
-                                                        <td class="text-right pr-1">{{ bordereau.reste|number_format(0,'','.') }}</td>
-                                                        {% if bordereau.type == 'inscription' %}
-                                                            <td class="text-center"><a href="{{ path('inscription_show', {'id': bordereau.id}) }}"><i class="fa fa-print"></i></a></td>
-                                                        {% elseif bordereau.type == 'versement' %}
-                                                            <td class="text-center"><a href="{{ path('versement_show', {'id': bordereau.id}) }}"><i class="fa fa-print"></i></a></td>
-                                                        {% else %}
-                                                            <td class="text-center"><i class="fa fa-eraser"></i></td>
-                                                        {% endif %}
 
-                                                    </tr>
-                                                {% else %}
-                                                    <tr>
-                                                        <td colspan="6" class="mt-3 text-center"><em>Aucune opération effectuée cette année academique </em></td>
-                                                    </tr>
-                                                {% endfor %}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="6" class="mt-3 text-center"><em>Aucune opération effectuée cette année academique </em></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -176,3 +171,25 @@
     </div>
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/plugins/datatables/dataTables.bootstrap4.min.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/plugins/datatables/buttons.bootstrap4.min.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/plugins/datatables/responsive.bootstrap4.min.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/jquery.dataTables.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/dataTables.bootstrap4.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/dataTables.buttons.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/buttons.bootstrap4.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/jszip.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/pdfmake.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/vfs_fonts.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/buttons.html5.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/buttons.print.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/buttons.colVis.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/dataTables.responsive.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/responsive.bootstrap4.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/pages/datatables.init.js')) }}"></script>
+{% endblock %}

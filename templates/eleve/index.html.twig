@@ -3,19 +3,25 @@
 {% block title %}{{ parent() }} Gestion des élèves{% endblock %}
 
 {% block body %}
-    <div class="content-wrapper">
+    <div class="content-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">Liste des éléves {{ annee }}</h4>
+                </div>
+            </div>
+        </div>
         <div class="card">
             <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-6"><h4 class="card-title">Liste des élèves</h4></div>
-                    <div class="col-6 text-right">
-                        <a href="{{ path('eleve_new') }}" class="btn btn-social-icon-text btn-facebook"><i class="fa fa-plus-circle"></i>Ajouter un nouvel élève</a>
+                <div class="row mb-5">
+                    <div class="col-12 text-right">
+                        <a href="{{ path('eleve_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i>Ajouter un nouvel élève</a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
                         <div class="table-responsive">
-                            <table class="table" id="order-listing">
+                            <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
                                     <th>Id</th>
@@ -30,7 +36,7 @@
                                 </thead>
                                 <tbody>
                                 {% for eleve in eleves %}
-                                    <tr>
+                                    <tr style="color: white">
                                         <td>{{ loop.index }}</td>
                                         <td>{{ eleve.matricule }}</td>
                                         <td>{{ eleve.nom|upper }} {{ eleve.prenoms|title }}</td>
@@ -59,12 +65,24 @@
 
 {% endblock %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ absolute_url(asset('assets/css/dataTables.bootstrap4.css')) }}">
     {{ parent() }}
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/plugins/datatables/dataTables.bootstrap4.min.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/plugins/datatables/buttons.bootstrap4.min.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/plugins/datatables/responsive.bootstrap4.min.css')) }}">
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <scprit src="{{ absolute_url(asset('assets/js/jquery.dataTables.js')) }}"></scprit>
-    <scprit src="{{ absolute_url(asset('assets/js/dataTables.bootstrap4.js')) }}"></scprit>
-    <scprit src="{{ absolute_url(asset('assets/js/data-table.js')) }}"></scprit>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/jquery.dataTables.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/dataTables.bootstrap4.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/dataTables.buttons.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/buttons.bootstrap4.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/jszip.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/pdfmake.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/vfs_fonts.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/buttons.html5.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/buttons.print.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/buttons.colVis.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/dataTables.responsive.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/responsive.bootstrap4.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/pages/datatables.init.js')) }}"></script>
 {% endblock %}

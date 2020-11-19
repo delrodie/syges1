@@ -36,6 +36,7 @@ class EleveController extends AbstractController
     {
         return $this->render('eleve/index.html.twig', [
             'eleves' => $eleveRepository->findBy([],['nom'=>"ASC",'prenoms'=>"ASC"]),
+            'annee' => $this->gestionEleve->annee()
         ]);
     }
 
@@ -112,7 +113,9 @@ class EleveController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('eleve_index');
+            $this->addFlash('success', "La modification a été effectuée avec succès");
+
+            return $this->redirectToRoute('eleve_show',['id'=>$eleve->getId()]);
         }
 
         return $this->render('eleve/edit.html.twig', [

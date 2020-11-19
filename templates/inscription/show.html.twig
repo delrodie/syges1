@@ -4,11 +4,11 @@
 
 {% block body %}
 
-    <div class="content-wrapper">
+    <div class="content-fluid text-white">
         <div class="row print">
             <div class="col-lg-12">
                 <div class="card px-2">
-                    <div class="card-body" id="impression">
+                    <div class="card-body text-white" id="impression">
                         <div class="container-fluid d-flex justify-content-between">
                             <div class="col-lg-6 pl-0">
                                 <p class="mt-5 mb-2">
@@ -46,22 +46,17 @@
                                     <p>Matricule: <b>{{ eleve.matricule }}</b></p>
                                 </div>
                                 <div class="col-4">
-                                    <p>Statut: <b>NON AFFECTE</b></p>
+                                    <p>Statut: <b>NON AFFECTE (E)</b></p>
                                 </div>
                                 <div class="col-4">
                                     <p>Date: <b>{{ inscription.createdAt|date('d/m/Y') }}</b></p>
                                 </div>
                             </div>
                             <div class="row mt-3">
-                                <div class="col-12">
+                                <div class="col-8">
                                     <p>Nom & prénoms: <b>{{eleve.nom|upper}} {{ eleve.prenoms|upper }}</b></p>
                                 </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-6">
-                                    <p>Statut: <b>NON AFFECTE(E) </b></p>
-                                </div>
-                                <div class="col-6">
+                                <div class="col-4">
                                     <p>Classe: <b>{{ inscription.classe.libelle }} </b></p>
                                 </div>
                             </div>
@@ -76,12 +71,12 @@
                                     <p>Montant restant: <b>{{ inscription.restant|number_format(0,'','.')}}</b> FCFA</p>
                                 </div>
                             </div>
-                            <div class="row mt-3">
+                            <!--<div class="row mt-3">
                                 <div class="col-12">
                                     <p>Montant en lettre: <b>CINQ MILLE FRANC CFA</b></p>
                                 </div>
-                            </div>
-                            <div class="row mt-2">
+                            </div>-->
+                            <div class="row mt-4">
                                 <div class="col-4 offset-8">
                                     <p class="text-center"><u>CAISSIER(E)</u><br><br>User</p>
                                 </div>
@@ -126,22 +121,17 @@
                                     <p>Matricule: <b>{{ eleve.matricule }}</b></p>
                                 </div>
                                 <div class="col-4">
-                                    <p>Statut: <b>NON AFFECTE</b></p>
+                                    <p>Statut: <b>NON AFFECTE(E)</b></p>
                                 </div>
                                 <div class="col-4">
                                     <p>Date: <b>{{ inscription.createdAt|date('d/m/Y') }}</b></p>
                                 </div>
                             </div>
                             <div class="row mt-3">
-                                <div class="col-12">
+                                <div class="col-8">
                                     <p>Nom & prénoms: <b>{{eleve.nom|upper}} {{ eleve.prenoms|upper }}</b></p>
                                 </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-6">
-                                    <p>Statut: <b>NON AFFECTE(E) </b></p>
-                                </div>
-                                <div class="col-6">
+                                <div class="col-4">
                                     <p>Classe: <b>{{ inscription.classe.libelle }} </b></p>
                                 </div>
                             </div>
@@ -156,11 +146,11 @@
                                     <p>Montant resté: <b>{{ inscription.restant|number_format(0,'','.')}}</b> FCFA</p>
                                 </div>
                             </div>
-                            <div class="row mt-3">
+                            <!--<div class="row mt-3">
                                 <div class="col-12">
                                     <p>Montant en lettre: <b>CINQ MILLE FRANC CFA</b></p>
                                 </div>
-                           </div>
+                           </div>-->
                             <div class="row mt-2">
                                 <div class="col-4 offset-8">
                                     <p class="text-center"><u>CAISSIER(E)</u><br><br>User</p>

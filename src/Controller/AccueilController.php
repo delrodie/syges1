@@ -60,7 +60,7 @@ class AccueilController extends AbstractController
             'pourcent_fille' => $pourcentage['FILLE'],
             'versements' => $versements,
             'classes' => $classes,
-            'effectifs' => $effectifs
+            'effectifs' => $effectifs,
         ]);
     }
 }

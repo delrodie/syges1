@@ -1,49 +1,70 @@
 {{ form_start(form) }}
-    <fieldset class="mt-5">
-        <legend>Elève</legend>
-        <div class="form-group row">
-            <div class="col-6">{{ form_row(form.nom) }} </div>
-            <div class="col-6">{{ form_row(form.prenoms) }}</div>
+    <div class="card m-b-30 formulaire">
+        <div class="card-body">
+            <h2 class="h2 mt-0 mb-5 text-white">Elève</h2>
+            <div class="form-group row">
+                <div class="col-6">{{ form_row(form.nom) }} </div>
+                <div class="col-6">{{ form_row(form.prenoms) }}</div>
+            </div>
+            <div class="form-group row">
+                <div class="col-6"> {{ form_row(form.dateNaissance) }} </div>
+                <div class="col-6"> {{ form_row(form.lieuNaissance) }} </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-6 select"> {{ form_row(form.sexe) }} </div>
+                <div class="col-6"> {{ form_row(form.nationalite) }} </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-6"> {{ form_row(form.domicile) }} </div>
+                <div class="col-6 select">  {{ form_row(form.classe) }} </div>
+            </div>
         </div>
-        <div class="form-group row">
-            <div class="col-6"> {{ form_row(form.dateNaissance) }} </div>
-            <div class="col-6"> {{ form_row(form.lieuNaissance) }} </div>
+    </div>
+    <div class="row formulaire">
+        <div class="col-md-6">
+            <div class="card m-b-30">
+                <div class="card-body">
+                    <h2 class="h2 mt-0 mb-5 text-white">Parents</h2>
+                    <div class="form-group">
+                        {{ form_row(form.nomParent) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.contactParent) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.professionParent) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.residence) }}
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group row">
-            <div class="col-6"> {{ form_row(form.sexe) }} </div>
-            <div class="col-6"> {{ form_row(form.nationalite) }} </div>
+        <div class="col-md-6 formulaire">
+            <div class="card m-b-30">
+                <div class="card-body">
+                    <h2 class="h2 mt-0 mb-5 text-white">Tuteurs</h2>
+                    <div class="form-group">
+                        {{ form_row(form.nomTuteur) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.contactTuteur) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.professionTuteur) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.residenceTuteur) }}
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group row">
-            <div class="col-6"> {{ form_row(form.domicile) }} </div>
-            <div class="col-6">  {{ form_row(form.classe) }} </div>
-        </div>
-    </fieldset>
-    <fieldset>
-        <legend>Parents</legend>
-        <div class="form-group row">
-            <div class="col-6">{{ form_row(form.nomParent) }}</div>
-            <div class="col-6">{{ form_row(form.professionParent) }}</div>
-        </div>
-        <div class="form-group row">
-            <div class="col-6">{{ form_row(form.contactParent) }}</div>
-            <div class="col-6">{{ form_row(form.residence) }}</div>
-        </div>
-    </fieldset>
-    <fieldset>
-        <legend>Tuteur</legend>
-        <div class="form-group row">
-            <div class="col-6">{{ form_row(form.nomTuteur) }}</div>
-            <div class="col-6">{{ form_row(form.professionTuteur) }}</div>
-        </div>
-        <div class="form-group row">
-            <div class="col-6">{{ form_row(form.contactTuteur) }}</div>
-            <div class="col-6">{{ form_row(form.residenceTuteur) }}</div>
-        </div>
-    </fieldset>
+    </div>
+
     {{ form_widget(form) }}
     <div class="text-right mt-5">
-        <a href="{{ path('eleve_index') }}" class="btn btn-outline-dark">Annuler</a>
-        <button class="btn btn-secondary">{{ button_label|default('Enregistrer') }}</button>
+        <a href="{{ path('eleve_index') }}" class="btn btn-outline-secondary">Annuler</a>
+        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
     </div>
 
 {{ form_end(form) }}
