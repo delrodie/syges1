@@ -19,6 +19,19 @@ class ScolariteRepository extends ServiceEntityRepository
         parent::__construct($registry, Scolarite::class);
     }
 
+    public function findByAnnee($annee)
+    {
+        return $this->createQueryBuilder('s')
+            ->addSelect('e')
+            ->addSelect('c')
+            ->leftJoin('s.eleve', 'e')
+            ->leftJoin('s.classe', 'c')
+            ->where('s.annee = :annee')
+            ->setParameter('annee', $annee)
+            ->getQuery()->getResult()
+            ;
+    }
+
     // /**
     //  * @return Scolarite[] Returns an array of Scolarite objects
     //  */

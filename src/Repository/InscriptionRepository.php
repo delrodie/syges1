@@ -19,6 +19,44 @@ class InscriptionRepository extends ServiceEntityRepository
         parent::__construct($registry, Inscription::class);
     }
 
+    /**
+     * Liste des inscrits par année
+     *
+     * @param $annee
+     * @return int|mixed|string
+     */
+    public function findByAnnee($annee)
+    {
+        return $this->createQueryBuilder('i')
+            ->addSelect('e')
+            ->addSelect('c')
+            ->leftJoin('i.eleve', 'e')
+            ->leftJoin('i.classe', 'c')
+            ->where('e.annee = :annee')
+            ->orderBy('i.createdAt', "DESC")
+            ->setParameter('annee', $annee)
+            ->getQuery()->getResult()
+            ;
+    }
+
+    public function findBySexe($annee, $sexe)
+    {
+        return $this->createQueryBuilder('i')
+            ->addSelect('e')
+            ->addSelect('c')
+            ->leftJoin('i.eleve', 'e')
+            ->leftJoin('i.classe', 'c')
+            ->where('e.annee = :annee')
+            ->andWhere('e.sexe = :sexe')
+            ->orderBy('i.createdAt', "DESC")
+            ->setParameters([
+                'annee' => $annee,
+                'sexe' => $sexe
+            ])
+            ->getQuery()->getResult()
+            ;
+    }
+
     // /**
     //  * @return Inscription[] Returns an array of Inscription objects
     //  */

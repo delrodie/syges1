@@ -1,4 +1,4 @@
-var map;
+revenueChartvar map;
 if ($('#vmap').length) {
     function initMap() {
         map = new google.maps.Map(document.getElementById('vmap'), {
