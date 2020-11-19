@@ -36,6 +36,20 @@ class AccueilController extends AbstractController
         }
 
         $versements = $this->em->getRepository('App:Versement')->findByAnnee($annee);
+        $classes = $this->em->getRepository('App:Classe')->findAll();
+        $i = 0;
+        foreach ($classes as $classe){
+            $nombre = $this->em->getRepository("App:Inscription")->findBy(['annee'=>$annee, 'classe'=>$classe->getId()]);
+            $garcons = $this->em->getRepository("App:Inscription")->findBySexeAndClasse($annee,"GARCON",$classe->getId());
+            $filles = $this->em->getRepository("App:Inscription")->findBySexeAndClasse($annee,"FILLE",$classe->getId());
+            $effectifs[$i] = [
+                'classe' => $classe->getLibelle(),
+                'total' => count($nombre),
+                'garcon' => count($garcons),
+                'fille' => count($filles)
+            ];
+            $i = $i +1;
+        }
 
         return $this->render('accueil/index.html.twig', [
             'total_inscrit' => count($inscrits),
@@ -44,7 +58,9 @@ class AccueilController extends AbstractController
             'total_fille' => $total_sexe['FILLE'],
             'pourcent_garcon' => $pourcentage['GARCON'],
             'pourcent_fille' => $pourcentage['FILLE'],
-            'versements' => $versements
+            'versements' => $versements,
+            'classes' => $classes,
+            'effectifs' => $effectifs
         ]);
     }
 }

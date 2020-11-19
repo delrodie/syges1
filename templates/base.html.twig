@@ -1,128 +1,146 @@
 <!DOCTYPE html>
-<html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>{% block title %}SYGES::{% endblock %}</title>
-        {% block stylesheets %}
-            <link rel="stylesheet" href="{{ absolute_url(asset('assets/css/ionicons.min.css')) }}">
-            <link rel="stylesheet" href="{{ absolute_url(asset('assets/css/vendor.bundle.base.css')) }}">
-            <link rel="stylesheet" href="{{ absolute_url(asset('assets/vendor/fontawesome-free/css/all.min.css')) }}">
-            <link rel="stylesheet" href="{{ absolute_url(asset('assets/vendor/sweetalert2/sweetalert2.min.css')) }}">
-            <link rel="stylesheet" href="{{ absolute_url(asset('assets/css/style.css')) }}">
-        {% endblock %}
-    </head>
-    <body>
-        <div class="container-scroller">
-            <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-                <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
-                    <a class="navbar-brand brand-logo" href="{{ path('app_ccueil') }}">SYGES</a>
-                    <a class="navbar-brand brand-logo-mini" href="{{ path('app_ccueil') }}">SYGES</a>
-                </div>
-                <div class="navbar-menu-wrapper">
-                    <div class="navbar-menu-wrapper-inner d-flex align-items-center justify-content-end">
-                        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-                            <span class="fa fa-bars"></span>
-                        </button>
-                        <ul class="navbar-nav navbar-nav-right">
-                            <li class="nav-item nav-profile dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                                    <img src="{{ absolute_url(asset('assets/images/avatar.png')) }}" alt="profile"/>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% block refresh %}{% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>{% block title %}SYGES 1.0 :: {% endblock %}</title>
+    <link rel="shortcut icon" href="{{ asset('assets/images/ascci.png') }}">
+    {% block stylesheets %}
+    {% endblock %}
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/css/bootstrap.min.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/plugins/animate/animate.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/css/icons.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/css/style.css')) }}">
+</head>
+<body class="fixed-left">
+<div id="wrapper">
+    <div class="left side-menu">
+        <button type="button" class="button-menu-mobile button-menu-mobile-topbar open-left waves-effect">
+            <i class="ion-close"></i>
+        </button>
 
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                                    <a class="dropdown-item">
-                                        <i class="fa fa-lock"></i>
-                                        Deconnexion
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-                            <span class="fa fa-bars"></span>
-                        </button>
-                    </div>
-                </div>
-            </nav>
-            <div class="container-fluid page-body-wrapper">
-                <nav class="sidebar sidebar-offcanvas" id="sidebar">
-
-                    <ul class="nav">
-                        <li class="nav-item">
-                            <p class="sidebar-title">ACCUEIL</p>
-                            <a class="nav-link" href="{{ path('app_ccueil') }}">
-                                <span class="menu-title">Tableau de bord</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <p class="sidebar-title">GESTION</p>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('eleve_index') }}">
-                                <i class="fa fa-male menu-icon"></i>
-                                <span class="menu-title">Elèves</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fa fa-user-secret menu-icon"></i>
-                                <span class="menu-title">Enseignants</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('classe_index') }}">
-                                <i class="fa fa-school menu-icon"></i>
-                                <span class="menu-title">Classes</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <p class="sidebar-title">FINANCE</p>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('inscription_index') }}">
-                                <i class="fa fa-money-bill-wave menu-icon"></i>
-                                <span class="menu-title">Inscription</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('versement_index') }}">
-                                <i class="fa fa-money-bill-alt menu-icon"></i>
-                                <span class="menu-title">Versements</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fa fa-money-check menu-icon"></i>
-                                <span class="menu-title">Paie Enseignant</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <p class="sidebar-title">PARAMETRES</p>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fa fa-users menu-icon"></i>
-                                <span class="menu-title">Utilisateurs</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="main-panel">
-
-                    {% block body %}{% endblock %}
-
-                    <footer class="footer">
-                        <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020 <a href="https://www.esthetelab.com/" target="_blank">ESTHETE LAB</a>. Tous droits réservés.</span>
-                        </div>
-                    </footer>
-                </div>
+        <div class="topbar-left">
+            <div class="text-center">
+                <a href="#" class="logo"><img src="{{ asset('assets/images/ascci.png') }}" alt="logo"></a>
             </div>
         </div>
-        {% block javascripts %}
-            <script src="{{ absolute_url(asset('assets/js/vendor.bundle.base.js')) }}"></script>
-            <script src="{{ absolute_url(asset('assets/vendor/sweetalert2/sweetalert2.min.js')) }}"></script>
-            <script src="{{ absolute_url(asset('assets/js/template.js')) }}"></script>
-        {% endblock %}
-    </body>
+
+
+        <div class="sidebar-inner slimscrollleft" id="sidebar-main">
+
+            <div id="sidebar-menu">
+                <ul>
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect waves-light">
+                            <i class="mdi mdi-view-dashboard"></i><span> Tableau de bord </span>
+                        </a>
+                        <ul class="list-unstyled">
+                            <li><a href="#">Statistique</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-title">Rubriques</li>
+
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect waves-light"><i class="mdi mdi-bullseye"></i> <span> Gestion</span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <ul class="list-unstyled">
+                            <li><a href="#">Eleve</a></li>
+                            <li><a href="#">Enseignant</a></li>
+                            <li><a href="#">Classe</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect waves-light"><i class="mdi mdi-table"></i><span> Finance </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <ul class="list-unstyled">
+                            <li><a href="#">Inscription</a></li>
+                            <li><a href="#">Versement</a></li>
+                            <li><a href="#">Paiement</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect waves-light"><i class="mdi mdi-clipboard-outline"></i><span> Etats </span><span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <ul class="list-unstyled">
+                            <li><a href="#">Liste de classe</a></li>
+                            <li><a href="#">Convocation</a></li>
+                        </ul>
+                    </li>
+
+
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect waves-light"><i class="mdi mdi-account"></i><span> Paramètre </span> </a>
+                        <ul class="list-unstyled">
+                            <li><a href="#"> Gestionnaire</a></li>
+                            <li><a href="#"> Utilisateur</a></li>
+                        </ul>
+                    </li>
+
+                    <!--<li class="menu-title">Archives</li>
+
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect waves-light"><i class="mdi mdi-bullseye"></i> <span> 2019-2020</span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <ul class="list-unstyled">
+                            <li><a href="#">Scout</a></li>
+                        </ul>
+                    </li>-->
+
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="content-page">
+        <div class="content">
+            <div class="topbar">
+                <nav class="navbar-custom">
+                    <ul class="list-inline float-right mb-0">
+                        <li class="list-inline-item dropdown notification-list">
+                            <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                               aria-haspopup="false" aria-expanded="false">
+                                <img src="{{ asset('assets/avatar.png') }}" alt="user" class="rounded-circle">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                                <!-- item-->
+                                <div class="dropdown-item noti-title">
+                                    <h5>Utilisateur</h5>
+                                </div>
+                                <a class="dropdown-item" href="#"><i class="mdi mdi-lock-open-outline"></i> Mot de passe</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-danger" href="#"><i class="mdi mdi-power text-danger"></i> Déconnexion</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </nav>
+            </div>
+
+            <div class="page-content-wrapper {% block page %}{% endblock %}">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+        <footer class="footer">
+            © 2020 <a href="https://www.esthetelab.com">ESTHETE LAB.</a>
+        </footer>
+    </div>
+</div>
+
+{% block javascripts %}
+    <script src="{{ absolute_url(asset('assets/backoffice/js/jquery.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/js/popper.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/js/bootstrap.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/js/modernizr.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/js/detect.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/js/fastclick.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/js/jquery.slimscroll.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/js/jquery.blockUI.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/js/waves.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/js/jquery.nicescroll.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/js/jquery.scrollTo.min.js')) }}"></script>
+{% endblock %}
+<script src="{{ asset('assets/backoffice/js/app.js') }}"></script>
+</body>
 </html>

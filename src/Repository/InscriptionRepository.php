@@ -39,6 +39,11 @@ class InscriptionRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * @param $annee
+     * @param $sexe
+     * @return int|mixed|string
+     */
     public function findBySexe($annee, $sexe)
     {
         return $this->createQueryBuilder('i')
@@ -52,6 +57,25 @@ class InscriptionRepository extends ServiceEntityRepository
             ->setParameters([
                 'annee' => $annee,
                 'sexe' => $sexe
+            ])
+            ->getQuery()->getResult()
+            ;
+    }
+
+    public function findBySexeAndClasse($annee, $sexe, $classe)
+    {
+        return $this->createQueryBuilder('i')
+            ->addSelect('e')
+            ->addSelect('c')
+            ->leftJoin('i.eleve', 'e')
+            ->leftJoin('i.classe', 'c')
+            ->where('i.annee = :annee')
+            ->andWhere('e.sexe = :sexe')
+            ->andWhere('c.id = :classe')
+            ->setParameters([
+                'annee' => $annee,
+                'sexe' => $sexe,
+                'classe' => $classe
             ])
             ->getQuery()->getResult()
             ;

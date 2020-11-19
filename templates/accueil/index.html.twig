@@ -1,131 +1,225 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{parent()}} Système de Gestion des Etablissement Scolaire{% endblock %}
+{% block page %}dashboard{% endblock %}
 
 {% block body %}
-    <div class="content-wrapper">
-        <div class="row  mt-3">
-            <div class="col-xl-4 d-flex grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex flex-wrap justify-content-between">
-                            <h2 class="mb-0 extra-large-title mt-1">Total </h2>
-                        </div>
-                        <p class="mt-2">.</p>
-                        <div class="d-lg-flex align-items-baseline justify-content-between mt-3">
-                            <div class="d-flex align-items-center">
-                                <div class="icon-bg-square">
-                                    <i class="fa fa-users fa-3x"></i>
-                                </div>
-                                <h1 class="text-dark font-weight-bold">{{ total_inscrit|number_format(0,'','.') }}</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 d-flex grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body py-4">
-                        <div class="d-flex flex-wrap justify-content-between">
-                            <h2 class="mb-0 extra-large-title mt-1">Garçons </h2>
-                            <div class="badge badge-pill badge-info">{{ pourcent_garcon|number_format(0,'','') }}%</div>
-                        </div>
-                        <p class="mt-2">.</p>
-                        <div class="d-lg-flex align-items-baseline justify-content-between mt-3">
-                            <div class="d-flex align-items-center">
-                                <div class="icon-bg-square">
-                                    <i class="fa fa-male fa-3x"></i>
-                                </div>
-                                <h1 class="text-dark font-weight-bold">{{ total_garcon }}</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 d-flex grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body py-4">
-                        <div class="d-flex flex-wrap justify-content-between">
-                            <h2 class="mb-0 extra-large-title mt-1">Filles</h2>
-                            <div class="badge badge-pill badge-danger">{{ pourcent_fille|number_format(0,'','') }}%</div>
-                        </div>
-                        <p class="mt-2">.</p>
-                        <div class="d-lg-flex align-items-baseline justify-content-between mt-3">
-                            <div class="d-flex align-items-center">
-                                <div class="icon-bg-square">
-                                    <i class="fa fa-female"></i>
-                                </div>
-                                <h1 class="text-dark font-weight-bold">{{ total_fille }}</h1>
-                            </div>
-                        </div>
-                    </div>
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">Tableau de bord</h4>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xl-4 d-flex grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="text-dark card-title">Derniers inscrits</h3>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <tbody>
-                                {% for inscrit in inscrits|slice(0,7) %}
-                                    <tr>
-                                        <td class="border-0 pt-0 pl-0">
-                                            <div class="d-flex">
-                                                <div class="mr-3">
-                                                    <img class="img-sm rounded-circle mb-md-0" src="assets/images/avatar.png" alt="profile image">
-                                                </div>
-                                                <div>
-                                                <h6 class="text-dark mb-1">{{ inscrit.eleve.nom|upper }} {{ inscrit.eleve.prenoms|title }}</h6>
-                                                    <div>{{ inscrit.classe.libelle }}</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="border-0 pt-0">
-                                            <a href="{{ path('inscription_show', {'id': inscrit.id}) }}"><i class="fa fa-print"></i></a>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
 
-                                </tbody>
-                            </table>
+        <div class="row">
+            <div class="col-md-12 col-xl-4">
+                <div class="card m-b-30">
+                    <div class="card-body ">
+                        <div class="d-flex row">
+                            <div class="col-3 align-self-center">
+                                <div class="round">
+                                    <i class="mdi mdi-account-multiple text-light"></i>
+                                </div>
+                            </div>
+                            <div class="col-6 ml-auto align-self-center text-center">
+                                <div class="m-l-10 text-white-50 float-right">
+                                    <h5 class="mt-0 round-inner">{{ total_inscrit }}</h5>
+                                    <p class="mb-0 ">Total</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-8 d-flex grid-margin stretch-card">
-                <div class="card">
+
+            <div class="col-md-12 col-xl-4">
+                <div class="card m-b-30">
+                    <div class="card-body ">
+                        <div class="d-flex row">
+                            <div class="col-3 align-self-center">
+                                <div class="round">
+                                    <i class="mdi mdi-account-multiple text-primary"></i>
+                                </div>
+                            </div>
+                            <div class="col-6 ml-auto align-self-center text-center">
+                                <div class="m-l-10 text-white-50 float-right">
+                                    <h5 class="mt-0 round-inner">{{ total_garcon }}</h5>
+                                    <p class="mb-0 ">GARCONS</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-xl-4">
+                <div class="card m-b-30">
+                    <div class="card-body ">
+                        <div class="d-flex row">
+                            <div class="col-3 align-self-center">
+                                <div class="round">
+                                    <i class="mdi mdi-account-multiple text-light"></i>
+                                </div>
+                            </div>
+                            <div class="col-6 ml-auto align-self-center text-center">
+                                <div class="m-l-10 text-white-50 float-right">
+                                    <h5 class="mt-0 round-inner">{{ total_fille }}</h5>
+                                    <p class="mb-0 ">FILLES</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end row -->
+
+        <div class="row">
+            <div class="col-md-12 col-xl-8">
+                <div class="card m-b-30">
+                    <div class="card-body" id="impressionChart">
+                        <div class="row">
+                            <div class="col-md-4 text-center">
+                                <div class="live-tile " data-mode="carousel" data-direction="vertical" data-delay="3500" data-height="10">
+                                    <div>
+                                        <h4 class="text-white mt-3 mb-1 text-warning"><strong>{{ total_inscrit|number_format(0,'','.') }}</strong></h4>
+                                        <p class="text-light">Total Eleve</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white mt-3 mb-1 text-warning"><strong>{{  total_garcon|number_format(0,'','.') }}</strong></h4>
+                                        <p class="text-light">Total garçon</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white mt-3 mb-1 text-warning"><strong>{{  total_fille|number_format(0,'','.') }}</strong></h4>
+                                        <p class="text-light">Total fille</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 mt-3 earning-text">
+                                <p class="font-14"><i class="mdi mdi-message mr-1"></i>Histogramme des adhérants par région
+                                    <span class="font-12 ml-2 float-right"><a href="#" class="nav-link active"  onclick="imprimer('impressionChart')"><i class="mdi mdi-printer"></i></a></span>
+                                </p>
+
+                            </div>
+                        </div>
+                        <div id="chart"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-xl-4">
+                <div class="card m-b-30">
                     <div class="card-body">
-                        <h3 class="text-dark card-title">Derniers versements</h3>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th class="border-0 pt-0 pl-0"> #</th>
-                                    <th class="border-0 pt-0"> Nom & prenoms</th>
-                                    <th class="border-0 pt-0"> Classe </th>
-                                    <th class="border-0 pt-0">Versés</th>
-                                    <th class="border-0 pt-0"> Restants</th>
-                                    <th class="border-0 pt-0">Date</th>
-                                    <th class="border-0 pt-0"></th>
+                        <h6>Effectifs des classes</h6>
+                        <table class="table">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>Classe</th>
+                                    <th>Total</th>
+                                    <th>Garçon</th>
+                                    <th>Fille</th>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                {% for versement in versements|slice(0,10) %}
-                                    <tr>
-                                        <td class="pl-0">{{loop.index}}</td>
-                                        <td>{{versement.eleve.nom|upper}} {{ versement.eleve.prenoms|title }}</td>
-                                        <td>{{versement.classe.libelle}}</td>
-                                        <td>{{versement.verse|number_format(0,'','.')}}</td>
-                                        <td>{{versement.restant|number_format(0,'','.')}}</td>
-                                        <td>{{versement.createdAt|date('Y-m-d H:i:s')}}</td>
-                                        <td><a href="{{ path('versement_show', {'id': versement.id}) }}"><i class="fa fa-print"></i></a></td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
+                            </thead>
+                            <tbody>
+                            {% for effectif in effectifs %}
+                                <tr>
+                                    <th>{{ effectif.classe }}</th>
+                                    <td class="text-center">{{ effectif.total }}</td>
+                                    <td class="text-center">{{ effectif.garcon }}</td>
+                                    <td class="text-center">{{ effectif.fille }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xl-4">
+                <div class="card">
+                    <div class="card-body table-data">
+                        <h6 class="d-inline-block">DERNIERS INSCRITS</h6>
+
+                        <div class="boxscroll w-100">
+                            <div class="tab-content" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="user-history" role="tabpanel" >
+                                    <div class="table-responsive user-history">
+                                        <table class="table">
+                                            <tbody>
+                                            {% for inscrit in inscrits|slice(0,10) %}
+                                                <tr>
+                                                    <td>
+                                                        <img class="rounded-circle" src="{{ absolute_url(asset('assets/avatar.png')) }}" alt="user" width="40">
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:void(0);" class="text-white-50">{{ inscrit.eleve.nom|upper }} {{ inscrit.eleve.prenoms|title }}</a>
+                                                    </td>
+                                                    <td>{{ inscrit.classe.libelle }}</td>
+                                                    <td><a href="{{ path('inscription_show', {'id': inscrit.id}) }}"><i class="fa fa-print"></i></a></td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        <div class="">
+                                            <a href="{{ path('inscription_index') }}" class="text-primary">
+                                                <i class="mdi mdi-chevron-down"></i> Voir tous les inscrits
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-xl-8">
+                <div class="card">
+                    <div class="card-body table-data">
+                        <h6 class="d-inline-block">DERNIERS VERSEMENTS</h6>
+
+                        <div class="boxscroll w-100">
+                            <div class="tab-content" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="user-history" role="tabpanel" >
+                                    <div class="table-responsive user-history">
+                                        <table class="table">
+                                            <thead>
+                                            <tr class="text-center">
+                                                <th class="border-top-0 w-60">#</th>
+                                                <th class="border-top-0">Nom & prenoms</th>
+                                                <th class="border-top-0">Classe</th>
+                                                <th class="border-top-0">Verse</th>
+                                                <th class="border-top-0">Restant</th>
+                                                <th class="border-top-0">Date</th>
+                                                <th class="border-top-0"></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for versement in versements|slice(0,10) %}
+                                                <tr>
+                                                    <td>{{loop.index }}</td>
+                                                    <td>{{ versement.eleve.nom|upper}} {{ versement.eleve.prenoms|title }}</td>
+                                                    <td class="text-center">{{versement.classe.libelle }}</td>
+                                                    <td class="text-right">{{  versement.verse|number_format(0,'','.') }}</td>
+                                                    <td class="text-right">{{ versement.restant|number_format(0,'','.')}}</td>
+                                                    <td class="text-center">{{ versement.createdAt|date('Y-m-d H:i:s') }}</td>
+                                                    <td class="text-center"><a href="{{ path('versement_show', {'id': versement.id}) }}"><i class="fa fa-print"></i></a></td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        <div class="">
+                                            <a href="{{ path('versement_index') }}" class="text-primary">
+                                                <i class="mdi mdi-chevron-down"></i> Voir tous les versments
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -133,8 +227,53 @@
         </div>
     </div>
 {% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/plugins/c3/c3.min.css')) }}">
+    <link rel="stylesheet" href="{{ asset('assets/backoffice/plugins/metro/MetroJs.min.css') }}">
+{% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ absolute_url(asset('assets/js/Chart.min.js')) }}"></script>
-    <script src="{{ absolute_url(asset('assets/js/dashboard.js')) }}"></script>
+    <script src="{{ asset('assets/backoffice/plugins/metro/MetroJs.min.js') }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/d3/d3.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/c3/c3.min.js')) }}"></script>
+    <script src="{{ asset('assets/backoffice/pages/dashborad.js') }}"></script>
+    <script>
+        $(".live-tile, .flip-list").not(".exclude").liveTile();
+        !function(e){
+            "use strict";
+            var a=function(){};
+            a.prototype.init=function(){
+                c3.generate({
+                    bindto:"#chart",
+                    data:{
+                        columns:[
+                            ["Inscrits",{% for effectif in effectifs %}{{ effectif.total }}{% if loop.last %}{% else %},{% endif %}{% endfor %}],
+                        ],
+                        types: {
+                            Inscrits: 'bar'
+                        },
+                        colors:{
+                            Inscrits:"#011d67",
+                            Objectif:"#fa8000",
+                        }
+                    },
+                    axis:{
+                        x:{
+                            type: 'category',
+                            categories: [{% for classe in classes %}'{{ classe.libelle }}'{% if loop.last %}{% else %},{% endif %}{% endfor %}]
+                        }
+                    }
+                })},
+                e.ChartC3=new a,e.ChartC3.Constructor=a}(window.jQuery),function(e){"use strict";window.jQuery.ChartC3.init()}();
+    </script>
+    <script>
+        function imprimer(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+    </script>
 {% endblock %}
