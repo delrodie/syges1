@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : ven. 20 nov. 2020 à 05:21
+-- Généré le : ven. 20 nov. 2020 à 14:12
 -- Version du serveur :  8.0.22-0ubuntu0.20.04.2
 -- Version de PHP : 7.3.22-1+ubuntu18.04.1+deb.sury.org+1
 
@@ -40,7 +40,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `roles`, `password`) VALUES
-(1, 'delrodie', '[\"ROLE_SUPER_ADMIN\"]', '$argon2id$v=19$m=65536,t=4,p=1$hMmrScVHEcc5b1+vuzvD0w$litQWjhOCwclT1nKRuU6UDLxpaXdRxlpq4CEy3oiL40');
+(6, 'delrodie', '[\"ROLE_SUPER_ADMIN\"]', '$argon2id$v=19$m=65536,t=4,p=1$bTjw6EqVio30wArYbo8/hA$U5Ung1/VZJBkig2cm3jnDoxlpZhxQRNEQe68/y06yc4'),
+(7, 'GSSERAPHINS', '[\"ROLE_ADMIN\"]', '$argon2id$v=19$m=65536,t=4,p=1$5vAvvWm3u5s5LCJdqaKKcw$KPy6z+WVcdPZWaxz3WEkInlFuH8tpSG9fImd4xRiRtU'),
+(8, 'ANGE', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$N1gDRLIYvF7KFhOTOs+aoQ$ub0ZIX5kXUAmC+uyD/PRIzBWEsqIzB7Pf7ff6v000sc'),
+(9, 'NGATTA', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$AEOYQKV46cNoksl8c4Fmpw$3v5eWODZcMMxX31NI+1+zcLnls2mFcqtn0u0GgUYZvM');
 
 --
 -- Index pour les tables déchargées
@@ -61,7 +64,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
