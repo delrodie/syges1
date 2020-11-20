@@ -71,11 +71,11 @@
                                     <p>Montant restant: <b>{{ inscription.restant|number_format(0,'','.')}}</b> FCFA</p>
                                 </div>
                             </div>
-                            <!--<div class="row mt-3">
+                            <div class="row mt-3">
                                 <div class="col-12">
-                                    <p>Montant en lettre: <b>CINQ MILLE FRANC CFA</b></p>
+                                    <p>Montant en lettre: <b>{{ montant_lettre|upper }}</b></p>
                                 </div>
-                            </div>-->
+                            </div>
                             <div class="row mt-4">
                                 <div class="col-4 offset-8">
                                     <p class="text-center"><u>CAISSIER(E)</u><br><br>User</p>
@@ -146,11 +146,11 @@
                                     <p>Montant resté: <b>{{ inscription.restant|number_format(0,'','.')}}</b> FCFA</p>
                                 </div>
                             </div>
-                            <!--<div class="row mt-3">
+                            <div class="row mt-3">
                                 <div class="col-12">
-                                    <p>Montant en lettre: <b>CINQ MILLE FRANC CFA</b></p>
+                                    <p>Montant en lettre: <b>{{ montant_lettre|upper }}</b></p>
                                 </div>
-                           </div>-->
+                           </div>
                             <div class="row mt-2">
                                 <div class="col-4 offset-8">
                                     <p class="text-center"><u>CAISSIER(E)</u><br><br>User</p>

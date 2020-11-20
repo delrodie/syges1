@@ -7,6 +7,7 @@ use App\Entity\Versement;
 use App\Form\VersementType;
 use App\Repository\VersementRepository;
 use App\Utilities\GestionEleve;
+use App\Utilities\GestionImpression;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,11 +22,13 @@ class VersementController extends AbstractController
 
     private $em;
     private $gestionEleve;
+    private $gestionImpression;
 
-    public function __construct(EntityManagerInterface $em, GestionEleve $gestionEleve)
+    public function __construct(EntityManagerInterface $em, GestionEleve $gestionEleve, GestionImpression $gestionImpression)
     {
         $this->em = $em;
         $this->gestionEleve = $gestionEleve;
+        $this->gestionImpression = $gestionImpression;
     }
 
     /**
@@ -116,7 +119,8 @@ class VersementController extends AbstractController
         return $this->render('versement/show.html.twig', [
             'versement' => $versement,
             'eleve' => $eleve,
-            'scolarite' => $scolarite
+            'scolarite' => $scolarite,
+            'montant_lettre' => $this->gestionImpression->nombre_en_lettre($versement->getVerse())
         ]);
     }
 

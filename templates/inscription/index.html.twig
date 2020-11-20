@@ -1,8 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription index{% endblock %}
-
-
+{% block title %}{{ parent() }} Listes des inscrits de l'année {{ annee }}{% endblock %}
 
 {% block body %}
     <div class="content-fluid">
@@ -26,17 +24,23 @@
                                     <th class="text-center">Classe</th>
                                     <th class="text-center">Elève</th>
                                     <th class="text-center">Verse</th>
+                                    <th class="text-center">Restant</th>
                                     <th class="text-center">actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {% for inscription in inscriptions %}
                                     <tr class="text-center">
-                                        <td class="text-center"># {{ loop.index }}</td>
+                                        <td class="text-right pr-3"> {{ loop.index }} </td>
                                         <td class="text-center">{{ inscription.annee }}</td>
                                         <td class="text-center">{{ inscription.classe.libelle }}</td>
-                                        <td class="text-left">{{ inscription.eleve.nom|upper }} {{ inscription.eleve.prenoms|title }}</td>
-                                        <td class="text-right pr-1">{{ inscription.verse|number_format(0,'','.') }}</td>
+                                        <td class="text-left">
+                                            <a href="{{ path('eleve_show', {'id': inscription.eleve.id}) }}" class="text-white">
+                                                {{ inscription.eleve.nom|upper }} {{ inscription.eleve.prenoms|title }}
+                                            </a>
+                                        </td>
+                                        <td class="text-right pr-3">{{ inscription.verse|number_format(0,'',' ') }}</td>
+                                        <td class="text-right pr-3">{{ inscription.restant|number_format(0,'',' ') }}</td>
                                         <td class="text-center">
                                             <a href="{{ path('inscription_show', {'id': inscription.id}) }}"><i class="fa fa-eye"></i></a> |
                                             <a href="{{ path('inscription_edit', {'id': inscription.id}) }}"><i class="fa fa-edit"></i></a>

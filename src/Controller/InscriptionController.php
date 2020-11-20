@@ -9,6 +9,7 @@ use App\Repository\ClasseRepository;
 use App\Repository\EleveRepository;
 use App\Repository\InscriptionRepository;
 use App\Utilities\GestionEleve;
+use App\Utilities\GestionImpression;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,13 +24,15 @@ class InscriptionController extends AbstractController
     private $gestionEleve;
     private $inscriptionReposiroty;
     private $eleveRepository;
+    private $gestionImpression;
 
-    public function __construct(ClasseRepository $classeRepository, GestionEleve $gestionEleve, InscriptionRepository $inscriptionRepository, EleveRepository $eleveRepository)
+    public function __construct(ClasseRepository $classeRepository, GestionEleve $gestionEleve, InscriptionRepository $inscriptionRepository, EleveRepository $eleveRepository, GestionImpression $gestionImpression)
     {
         $this->classeRepository = $classeRepository;
         $this->gestionEleve = $gestionEleve;
         $this->inscriptionReposiroty = $inscriptionRepository;
         $this->eleveRepository = $eleveRepository;
+        $this->gestionImpression = $gestionImpression;
     }
 
     /**
@@ -113,9 +116,11 @@ class InscriptionController extends AbstractController
      */
     public function show(Inscription $inscription): Response
     {
+        $montant_lettre = $this->gestionImpression->nombre_en_lettre($inscription->getVerse());
         return $this->render('inscription/show.html.twig', [
             'inscription' => $inscription,
-            'eleve' => $this->eleveRepository->findOneBy(['id'=>$inscription->getEleve()->getId()])
+            'eleve' => $this->eleveRepository->findOneBy(['id'=>$inscription->getEleve()->getId()]),
+            'montant_lettre' => $montant_lettre
         ]);
     }
 
