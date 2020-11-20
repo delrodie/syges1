@@ -37,7 +37,7 @@ class AccueilController extends AbstractController
 
         $versements = $this->em->getRepository('App:Versement')->findByAnnee($annee);
         $classes = $this->em->getRepository('App:Classe')->findAll();
-        $i = 0;
+        $i = 0; $effectifs = [];
         foreach ($classes as $classe){
             $nombre = $this->em->getRepository("App:Inscription")->findBy(['annee'=>$annee, 'classe'=>$classe->getId()]);
             $garcons = $this->em->getRepository("App:Inscription")->findBySexeAndClasse($annee,"GARCON",$classe->getId());

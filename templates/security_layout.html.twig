@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{% block title %}SYGES::{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/css/bootstrap.min.css')) }}">
+            <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/plugins/animate/animate.css')) }}">
+            <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/css/icons.css')) }}">
+            <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/css/style.css')) }}">
+        {% endblock %}
+    </head>
+    <body class="fixed-left">
+    {% block body %}{% endblock %}
+
+    {% block javascripts %}
+        <script src="{{ absolute_url(asset('assets/backoffice/js/jquery.min.js')) }}"></script>
+        <script src="{{ absolute_url(asset('assets/backoffice/js/popper.min.js')) }}"></script>
+        <script src="{{ absolute_url(asset('assets/backoffice/js/bootstrap.min.js')) }}"></script>
+        <script src="{{ absolute_url(asset('assets/backoffice/js/modernizr.min.js')) }}"></script>
+        <script src="{{ absolute_url(asset('assets/backoffice/js/detect.js')) }}"></script>
+        <script src="{{ absolute_url(asset('assets/backoffice/js/fastclick.js')) }}"></script>
+        <script src="{{ absolute_url(asset('assets/backoffice/js/jquery.slimscroll.js')) }}"></script>
+        <script src="{{ absolute_url(asset('assets/backoffice/js/jquery.blockUI.js')) }}"></script>
+        <script src="{{ absolute_url(asset('assets/backoffice/js/waves.js')) }}"></script>
+        <script src="{{ absolute_url(asset('assets/backoffice/js/jquery.nicescroll.js')) }}"></script>
+        <script src="{{ absolute_url(asset('assets/backoffice/js/jquery.scrollTo.min.js')) }}"></script>
+    {% endblock %}
+    <script src="{{ asset('assets/backoffice/js/app.js') }}"></script>
+    </body>
+</html>
