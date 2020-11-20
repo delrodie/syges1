@@ -36,6 +36,7 @@ class VersementController extends AbstractController
         $annee = $this->gestionEleve->annee();
         return $this->render('versement/index.html.twig', [
             'versements' => $versementRepository->findBy(['annee'=>$annee]),
+            'annee' => $this->gestionEleve->annee()
         ]);
     }
 
@@ -86,7 +87,7 @@ class VersementController extends AbstractController
 
             if (!$this->gestionEleve->scolarite(null, $versement->getId()));
 
-            return $this->redirectToRoute('versement_index');
+            return $this->redirectToRoute('versement_show',['id'=>$versement->getId()]);
         }
 
         // Les query

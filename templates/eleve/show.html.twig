@@ -22,8 +22,15 @@
                     <div class="col-12">
                         {% for label, messages in app.flashes %}
                             {% for message in messages %}
-                                <div class="alert alert-{{ label }}">
-                                    {{ message }}
+                                <div class="alert alert-{{ label }} alert-dismissible fade show d-flex align-items-center" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    {% if label == 'success' %}
+                                        <i class="mdi mdi-checkbox-marked-circle font-32"></i><strong class="pr-1">Success !</strong> {{ message }}
+                                    {% else %}
+                                        <i class="mdi mdi-close-circle font-32"></i><strong class="pr-1">Echec !</strong> {{ message }}
+                                    {% endif %}
                                 </div>
                             {% endfor %}
                         {% endfor %}

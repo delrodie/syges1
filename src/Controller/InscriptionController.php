@@ -39,6 +39,7 @@ class InscriptionController extends AbstractController
     {
         return $this->render('inscription/index.html.twig', [
             'inscriptions' => $inscriptionRepository->findAll(),
+            'annee' => $this->gestionEleve->annee()
         ]);
     }
 
@@ -155,6 +156,8 @@ class InscriptionController extends AbstractController
             $em->flush();
             $total = $inscription->getVerse()+$inscription->getRestant();
             $this->gestionEleve->scolariteUpdated($inscription->getEleve()->getId(),$inscription->getAnnee(),$total,$inscription->getVerse(),$inscription->getRestant());
+
+            $this->addFlash('success', "Inscription modifiée avec succès");
 
             return $this->redirectToRoute('inscription_show',['id'=>$inscription->getId()]);
         }

@@ -16,10 +16,10 @@
     <div class="form-group">
         <label for="">Montant versé</label>
         {{ form_widget(form.verse,{'attr':{'style':"font-size:1.2rem; color:#000"}}) }}
-        <em style="color: darkred; font-size: 0.9rem;">Veuillez renseigner ce champ sans espace ni point</em>
+        <em style="color: yellow; font-size: 0.9rem;">Veuillez renseigner ce champ sans espace ni point</em>
     </div>
     {{ form_widget(form) }}
     <div class="text-right mt-3">
-        <button class="btn btn-secondary">{{ button_label|default('Valider') }}</button>
+        <button class="btn btn-primary">{{ button_label|default('Valider') }}</button>
     </div>
 {{ form_end(form) }}

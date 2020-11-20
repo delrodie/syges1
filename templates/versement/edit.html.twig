@@ -3,7 +3,14 @@
 {% block title %}{{ parent() }} Gestion des versments{% endblock %}
 
 {% block body %}
-    <div class="content-wrapper">
+    <div class="content-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <h4 class="page-title"></h4>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -12,8 +19,15 @@
                             <div class="col-12">
                                 {% for label, messages in app.flashes %}
                                     {% for message in messages %}
-                                        <div class="alert alert-{{ label }}">
-                                            {{ message }}
+                                        <div class="alert alert-{{ label }} alert-dismissible fade show d-flex align-items-center text-black-50" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            {% if label == 'success' %}
+                                                <i class="mdi mdi-checkbox-marked-circle font-32"></i><strong class="pr-1">Success !</strong> {{ message }}
+                                            {% else %}
+                                                <i class="mdi mdi-close-circle font-32"></i><strong class="pr-1">Echec !</strong> {{ message }}
+                                            {% endif %}
                                         </div>
                                     {% endfor %}
                                 {% endfor %}
@@ -21,96 +35,96 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-4">
-                                <div class="border-bottom text-center pb-4">
-                                    <img src="{{ absolute_url(asset('assets/images/avatar.png')) }}" alt="profile" class="img-lg rounded-circle mb-3"/>
-                                    <div class="mb-3">
-                                        <h3>{{ eleve.nom|upper }} {{ eleve.prenoms|title }}</h3>
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            <h5 class="mb-0 mr-2 text-muted">{{ eleve.matricule }}</h5>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="border-bottom text-center pb-4">
+                                            <img src="{{ absolute_url(asset('assets/avatar.png')) }}" alt="profile" class="img-lg rounded-circle mb-3" width="80"/>
+                                            <div class="mb-3">
+                                                <h3>{{ eleve.nom|upper }} {{ eleve.prenoms|title }}</h3>
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <h5 class="mb-0 mr-2 text-muted">{{ eleve.matricule }}</h5>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-center">
+                                                <a href="{{ path('eleve_edit', {'id': eleve.id}) }}"><button class="btn btn-primary mr-1">Modifier</button></a>
+                                                {% if inscription is empty %}
+                                                    <a href="{{ path('inscription_new', {'eleve': eleve.id}) }}"><button class="btn btn-outline-primary text-white mr-1">Inscription</button></a>
+                                                {% else %}
+                                                    <a href="{{ path('versement_new', {'eleve': eleve.id}) }}"><button class="btn btn-info text-white">Versement</button></a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="border-bottom py-4">
+                                            <div>
+                                                <div class="row">
+                                                    <div class="col-6">Scolarité:</div>
+                                                    <div class="col-6 text-white">{{ scolarite.total|number_format(0,'','.') }} FCFA</div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                    <div class="col-6">Total versé:</div>
+                                                    <div class="col-6 text-white">{{ scolarite.verse|number_format(0,'','.') }} </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                    <div class="col-6">Total restant:</div>
+                                                    <div class="col-6 text-white">{{ scolarite.restant|number_format(0,'','.') }} FCFA</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="py-4">
+                                            <p class="clearfix">
+                                                <span class="float-left">Nom</span>
+                                                <span class="float-right text-white">{{ eleve.nom|upper }}</span>
+                                            </p>
+                                            <p class="clearfix">
+                                                <span class="float-left">Nom</span>
+                                                <span class="float-right text-white">{{ eleve.prenoms|title }}</span>
+                                            </p>
+                                            <p class="clearfix">
+                                                <span class="float-left">Date de naissance</span>
+                                                <span class="float-right text-white">{{ eleve.dateNaissance }}</span>
+                                            </p>
+                                            <p class="clearfix">
+                                                <span class="float-left">Lieu de naissance</span>
+                                                <span class="float-right text-white">{{ eleve.lieuNaissance }}</span>
+                                            </p>
+                                            <p class="clearfix">
+                                                <span class="float-left">Sexe</span>
+                                                <span class="float-right text-white">{{ eleve.sexe }}</span>
+                                            </p>
+                                            <p class="clearfix">
+                                                <span class="float-left">Nom Parent</span>
+                                                <span class="float-right text-white">{{ eleve.nomParent|title }}</span>
+                                            </p>
+                                            <p class="clearfix">
+                                                <span class="float-left">Contact Parent</span>
+                                                <span class="float-right text-white">{{ eleve.contactParent }}</span>
+                                            </p>
+                                            <p class="clearfix">
+                                                <span class="float-left">Nom tuteur</span>
+                                                <span class="float-right text-white">{{ eleve.nomTuteur|title }}</span>
+                                            </p>
+                                            <p class="clearfix">
+                                                <span class="float-left">Contact tuteur</span>
+                                                <span class="float-right text-white">{{ eleve.contactTuteur }}</span>
+                                            </p>
                                         </div>
                                     </div>
-                                    <div class="d-flex justify-content-center">
-                                        <a href="{{ path('eleve_edit', {'id': eleve.id}) }}"><button class="btn btn-success mr-1">Modifier</button></a>
-                                        {% if inscription is empty %}
-                                            <a href="{{ path('inscription_new', {'eleve': eleve.id}) }}"><button class="btn btn-outline-danger mr-1">Inscription</button></a>
-                                        {% else %}
-                                            <a href="{{ path('versement_new', {'eleve': eleve.id}) }}"><button class="btn btn-secondary">Versement</button></a>
-                                        {% endif %}
-                                    </div>
                                 </div>
-                                <div class="border-bottom py-4">
-                                    <div>
-                                        <div class="row">
-                                            <div class="col-6">Scolarité:</div>
-                                            <div class="col-6">{{ scolarite.total|number_format(0,'','.') }} FCFA</div>
-                                        </div>
-                                        <div class="row mt-3">
-                                            <div class="col-6">Total versé:</div>
-                                            <div class="col-6">{{ scolarite.verse|number_format(0,'','.') }} </div>
-                                        </div>
-                                        <div class="row mt-3">
-                                            <div class="col-6">Total restant:</div>
-                                            <div class="col-6">{{ scolarite.restant |number_format(0,'','.') }} FCFA</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="border-bottom py-4">
-                                    <div class="d-flex">
-                                        <div class="progress progress-md flex-grow">
-                                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100" style="width: 100%" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="py-4">
-                                    <p class="clearfix">
-                                        <span class="float-left">Nom</span>
-                                        <span class="float-right text-muted">{{ eleve.nom|upper }}</span>
-                                    </p>
-                                    <p class="clearfix">
-                                        <span class="float-left">Nom</span>
-                                        <span class="float-right text-muted">{{ eleve.prenoms|title }}</span>
-                                    </p>
-                                    <p class="clearfix">
-                                        <span class="float-left">Date de naissance</span>
-                                        <span class="float-right text-muted">{{ eleve.dateNaissance }}</span>
-                                    </p>
-                                    <p class="clearfix">
-                                        <span class="float-left">Lieu de naissance</span>
-                                        <span class="float-right text-muted">{{ eleve.lieuNaissance }}</span>
-                                    </p>
-                                    <p class="clearfix">
-                                        <span class="float-left">Sexe</span>
-                                        <span class="float-right text-muted">{{ eleve.sexe }}</span>
-                                    </p>
-                                    <p class="clearfix">
-                                        <span class="float-left">Nom Parent</span>
-                                        <span class="float-right text-muted">{{ eleve.nomParent|title }}</span>
-                                    </p>
-                                    <p class="clearfix">
-                                        <span class="float-left">Contact Parent</span>
-                                        <span class="float-right text-muted">{{ eleve.contactParent }}</span>
-                                    </p>
-                                    <p class="clearfix">
-                                        <span class="float-left">Nom tuteur</span>
-                                        <span class="float-right text-muted">{{ eleve.nomTuteur|title }}</span>
-                                    </p>
-                                    <p class="clearfix">
-                                        <span class="float-left">Contact tuteur</span>
-                                        <span class="float-right text-muted">{{ eleve.contactTuteur }}</span>
-                                    </p>
-                                </div>
-                                <button class="btn btn-secondary btn-block mb-2">Voir détails</button>
                             </div>
                             <div class="col-lg-8">
-                                <div class="d-block d-md-flex justify-content-between mt-4 mt-md-0">
-                                    <div class="text-center mt-4 mt-md-0">
-                                        <h2>FORMULAIRE DE VERSEMENT</h2>
-                                    </div>
-                                </div>
-                                <div class="mt-4 py-2 border-top">
-                                    {{ include('versement/_form.html.twig', {'button_label': 'Modifier'}) }}
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-block d-md-flex justify-content-between mt-4 mt-md-0">
+                                            <div class="text-center mt-4 mt-md-0">
+                                                <h2>FORMULAIRE DE VERSEMENT</h2>
+                                            </div>
+                                        </div>
+                                        <div class="mt-4 py-2 border-top">
+                                            {{ include('versement/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-                                    {{ include('versement/_delete_form.html.twig') }}
+                                            {{ include('versement/_delete_form.html.twig') }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

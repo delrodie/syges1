@@ -3,7 +3,7 @@
 {% block title %}{{ parent() }} Gestion des classes {% endblock %}
 
 {% block body %}
-    <div class="content-wrapper">
+    <div class="content-fluid">
         <div class="row">
             <div class="col-xl-8 d-flex grid-margin stretch-card">
                 <div class="card">
@@ -13,8 +13,7 @@
                             <table class="table">
                                 <thead>
                                 <tr class="text-center">
-                                    <th class="border-0 pt-0 pl-0">
-                                        #
+                                    <th class="border-0 pt-0 pl-0"> #
                                     </th>
                                     <th class="border-0 pt-0">
                                         Classe
@@ -29,7 +28,7 @@
                                 </thead>
                                 <tbody>
                                 {% for classe in classes %}
-                                    <tr class="text-center">
+                                    <tr class="text-center text-white">
                                         <td class="pl-0">{{ loop.index }}</td>
                                         <td>{{classe.libelle}}</td>
                                         <td>{{classe.scolarite|number_format(0,'','.')}}</td>

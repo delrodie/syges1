@@ -147,7 +147,7 @@
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="user-history" role="tabpanel" >
                                     <div class="table-responsive user-history">
-                                        <table class="table">
+                                        <table class="table text-white">
                                             <tbody>
                                             {% for inscrit in inscrits|slice(0,10) %}
                                                 <tr>
@@ -155,7 +155,7 @@
                                                         <img class="rounded-circle" src="{{ absolute_url(asset('assets/avatar.png')) }}" alt="user" width="40">
                                                     </td>
                                                     <td>
-                                                        <a href="javascript:void(0);" class="text-white-50">{{ inscrit.eleve.nom|upper }} {{ inscrit.eleve.prenoms|title }}</a>
+                                                        <a href="javascript:void(0);" class="text-white">{{ inscrit.eleve.nom|upper }} {{ inscrit.eleve.prenoms|title }}</a>
                                                     </td>
                                                     <td>{{ inscrit.classe.libelle }}</td>
                                                     <td><a href="{{ path('inscription_show', {'id': inscrit.id}) }}"><i class="fa fa-print"></i></a></td>
@@ -199,7 +199,7 @@
                                             </thead>
                                             <tbody>
                                             {% for versement in versements|slice(0,10) %}
-                                                <tr>
+                                                <tr class="text-white">
                                                     <td>{{loop.index }}</td>
                                                     <td>{{ versement.eleve.nom|upper}} {{ versement.eleve.prenoms|title }}</td>
                                                     <td class="text-center">{{versement.classe.libelle }}</td>
