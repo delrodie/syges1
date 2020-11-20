@@ -47,4 +47,30 @@ class EtatController extends AbstractController
             'classes' => $classes
         ]);
     }
+
+    /**
+     * @Route("/convocation", name="etat_convocation", methods={"GET","POST"})
+     */
+    public function convocation(Request $request)
+    {
+        $annee = $this->gestionEleve->annee();
+        $classes = $this->em->getRepository("App:Classe")->findAll();
+
+        // Si une requete a été effectuée alors afficher la liste selon la requête sinon liste de la classe de CP1
+        $search_class = $request->get('search_classe');
+        if ($search_class){
+            $classe = $this->em->getRepository("App:Classe")->findOneBy(['id'=>$search_class])->getLibelle();
+            $scolarites = $this->em->getRepository("App:Scolarite")->findByAnneeAndClasse($annee, $search_class);
+        }else{
+            $classe = "CP1";
+            $scolarites = $this->em->getRepository("App:Scolarite")->findByAnneeAndClasse($annee, 1);
+        } //dd($scolarites);
+
+        return $this->render('etat/convocation.html.twig',[
+            'scolarites' => $scolarites,
+            'annee' => $annee,
+            'classe' => $classe,
+            'classes' => $classes
+        ]);
+    }
 }

@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Listes des élèves de la classe de {{ classe }}{% endblock %}
+
+{% block body %}
+    <div class="content-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">Liste des éléves de la classe de {{ classe }}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-5">
+                    <div class="col-4 offset-4 text-right recherche">
+                        <form action="{{ path('etat_convocation') }}" method="post" onchange="return this.submit()">
+                            <select name="search_classe" class="form-control">
+                                <option value="" selected>Recherche...</option>
+                                <option value=""></option>
+                                {% for classe in classes %}
+                                    <option value="{{ classe.id }}">{{ classe.libelle }}</option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                <tr class="text-center">
+                                    <th>Id</th>
+                                    <th>Matricule</th>
+                                    <th>Nom</th>
+                                    <th>Prenoms</th>
+                                    <th>Date de naissance</th>
+                                    <th>Lieu de naissance</th>
+                                    <th>Sexe</th>
+                                    <th>Total versé</th>
+                                    <th>Total restant</th>
+                                    <th>Statut</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for scolarite in scolarites %}
+                                    <tr style="color: white">
+                                        <td class="text-right pr-3">{{ loop.index }}</td>
+                                        <td class="text-center"><a href="{{ path('eleve_show', {'id': scolarite.eleve.id}) }}">{{ scolarite.eleve.matricule }}</a> </td>
+                                        <td>{{ scolarite.eleve.nom|upper }} </td>
+                                        <td>{{ scolarite.eleve.prenoms|title }}</td>
+                                        <td class="text-center">{{ scolarite.eleve.dateNaissance|date('d/m/Y') }}</td>
+                                        <td>{{ scolarite.eleve.lieuNaissance|title }}</td>
+                                        <td class="text-left">{{ scolarite.eleve.sexe }}</td>
+                                        <td class="text-right pr-3">{{ scolarite.verse|number_format(0,'','.') }}</td>
+                                        <td class="text-right pr-3">{{ scolarite.restant|number_format(0,'','.') }}</td>
+                                        <td>
+                                            {{ scolarite.statut? "<span class='badge badge-success'>Soldé</span>" : "<span class='badge badge-danger'>Non soldé</span>" }}
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="8" class="text-center"><em>Aucun élève</em></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/plugins/datatables/dataTables.bootstrap4.min.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/plugins/datatables/buttons.bootstrap4.min.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/plugins/datatables/responsive.bootstrap4.min.css')) }}">
+    <style>
+        .recherche select option{
+            color: black;
+        }
+    </style>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/jquery.dataTables.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/dataTables.bootstrap4.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/dataTables.buttons.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/buttons.bootstrap4.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/jszip.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/pdfmake.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/vfs_fonts.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/buttons.html5.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/buttons.print.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/buttons.colVis.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/dataTables.responsive.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/responsive.bootstrap4.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/pages/datatables.init.js')) }}"></script>
+{% endblock %}

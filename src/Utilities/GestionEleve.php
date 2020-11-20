@@ -178,6 +178,8 @@ class GestionEleve
         $scolarite->setTotal($total);
         $scolarite->setVerse($verse);
         $scolarite->setRestant($restant);
+        if ($restant === 0) $scolarite->setStatut(true);
+        else $scolarite->setStatut(0);
         $this->em->flush();
 
         return true;

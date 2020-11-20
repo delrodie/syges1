@@ -32,6 +32,30 @@ class ScolariteRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * @param $annee
+     * @param $classe
+     * @return int|mixed|string
+     */
+    public function findByAnneeAndClasse($annee, $classe)
+    {
+        return $this->createQueryBuilder('s')
+            ->addSelect('e')
+            ->addSelect('c')
+            ->leftJoin('s.eleve', 'e')
+            ->leftJoin('e.classe', 'c')
+            ->where('s.annee = :annee')
+            ->andWhere('e.classe = :classe')
+            ->orderBy('e.nom', "ASC")
+            ->addOrderBy('e.prenoms', "ASC")
+            ->setParameters([
+                'annee' => $annee,
+                'classe' => $classe
+            ])
+            ->getQuery()->getResult()
+            ;
+    }
+
     // /**
     //  * @return Scolarite[] Returns an array of Scolarite objects
     //  */
