@@ -83,11 +83,24 @@ class EtatController extends AbstractController
         $class = $this->em->getRepository("App:Classe")->findOneBy(['libelle'=>$classe]); //dd($class->getId());
         $scolarites = $this->em->getRepository("App:Scolarite")->findByAnneeAndClasse($annee, $classe);
 
+        $mois_encours = date('m');
+        $annee_encours = date('Y');
+        $jour_encours = date('d');
+
+        if ($jour_encours >= 05){
+            if ($mois_encours === 12) $mois = 01;
+            else $mois = $mois_encours + 1;
+
+            $date_echeance = '05/'.$mois.'/'.$annee_encours;
+            $date_encours = $jour_encours.'/'.$mois_encours.'/'.$annee_encours;
+        }
 
         return $this->render('etat/relance.html.twig',[
             'scolarites' => $scolarites,
             'annee' => $annee,
             'classe' => $class,
+            'date_echeance' => $date_echeance,
+            'date_jour' => $date_encours
         ]);
     }
 }

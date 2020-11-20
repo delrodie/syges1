@@ -57,6 +57,11 @@ class Versement
      */
     private $classe;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $date;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -159,6 +164,18 @@ class Versement
     public function setClasse(?Classe $classe): self
     {
         $this->classe = $classe;
+
+        return $this;
+    }
+
+    public function getDate(): ?string
+    {
+        return $this->date;
+    }
+
+    public function setDate(?string $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }

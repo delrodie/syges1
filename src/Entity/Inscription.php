@@ -57,6 +57,11 @@ class Inscription
      */
     private $numero;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $date;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -159,6 +164,18 @@ class Inscription
     public function setNumero(?string $numero): self
     {
         $this->numero = $numero;
+
+        return $this;
+    }
+
+    public function getDate(): ?string
+    {
+        return $this->date;
+    }
+
+    public function setDate(?string $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }

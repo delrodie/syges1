@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,7 +23,7 @@ class InscriptionType extends AbstractType
             //->add('annee')
             ->add('verse',IntegerType::class,['attr'=>['class'=>'form-control', 'placeholder'=>"Le montant versé", 'autocomplete'=>"off"]])
             //->add('restant')
-            //->add('createdAt')
+            ->add('date', TextType::class,['attr'=>['class'=>'form-control date', 'placeholder'=>"Date d'inscription", 'autocomplete'=>"off"]])
             //->add('createdBy')
             ->add('eleve', EntityType::class,[
                 'attr'=>['class'=>'form-control'],

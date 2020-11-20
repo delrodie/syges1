@@ -133,5 +133,24 @@
         </div>
     </div>
 {% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css')) }}">
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')) }}"></script>
+    <script>
+        $().ready(function (t) {
+            //t("#eleve_dateNaissance").bootstrapMaterialDatePicker({weekStart:0,time:!1})
+            t(".date").datepicker({
+                format: "yyyy-mm-dd",
+                locale: 'FR',
+                autoclose: !0
+            })
+        })
+    </script>
+{% endblock %}
 
 

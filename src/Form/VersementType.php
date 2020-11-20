@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,7 +22,8 @@ class VersementType extends AbstractType
             //->add('numero')
             //->add('annee')
             ->add('verse',IntegerType::class,['attr'=>['class'=>'form-control', 'placeholder'=>"Le montant versé", 'autocomplete'=>"off"]])
-            //->add('restant')
+            ->add('date', TextType::class,['attr'=>['class'=>'form-control date', 'placeholder'=>"Date d'inscription", 'autocomplete'=>"off"]])
+
             //->add('createdAt')
             //->add('createdBy')
             ->add('eleve', EntityType::class,[
