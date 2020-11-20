@@ -1,0 +1,20 @@
+{{ form_start(form) }}
+    <div class="form-group mb-3 user">
+        {{ form_row(form.username) }}
+    </div>
+    <div class="form-group mb-3 user">
+        {{ form_row(form.password) }}
+    </div>
+    <div class="form-group user">
+        <label for="user_roles">Fonction</label>
+        <select name="user_roles" id="user_roles" class="form-control">
+            <option value="">-</option>
+            <option value="0">UTULISATEUR</option>
+            <option value="1">ADMINISTRATEUR</option>
+        </select>
+    </div>
+    <div class="text-right mt-5">
+        <a href="{{ path('admin_user_index') }}" class="btn btn-outline-primary text-white">Annuler</a>
+        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+{{ form_end(form) }}

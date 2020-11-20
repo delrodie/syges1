@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Gestion des utilisateurs {% endblock %}
+
+{% block body %}
+    <div class="content-fluid">
+        <div class="row">
+            <div class="col-12">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} alert-dismissible fade show d-flex align-items-center" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            {% if label == 'success' %}
+                                <i class="mdi mdi-checkbox-marked-circle font-32"></i><strong class="pr-1">Success !</strong> {{ message }}
+                            {% else %}
+                                <i class="mdi mdi-close-circle font-32"></i><strong class="pr-1">Echec !</strong> {{ message }}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="text-white card-title mb-5">Liste des utilisateurs</h4>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr class="text-center">
+                                    <th class="border-0 pt-0 pl-0"> #
+                                    </th>
+                                    <th class="border-0 pt-0"> Nom utilisateur</th>
+                                    <th class="border-0 pt-0"> Roles</th>
+                                    <th class="border-0 pt-0"> Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for user in users %}
+                                    <tr class="text-center text-white">
+                                        <td class="pl-0">{{ loop.index }}</td>
+                                        <td>{{ user.username}}</td>
+                                        <td>
+                                            {% if user.roles[0] == 'ROLE_ADMIN' %}
+                                                ADMINISTRATEUR
+                                            {% else %}
+                                                UTILISATEUR
+                                            {% endif %}
+                                        </td>
+                                        <td><a href="{{ path('admin_user_edit', {'username': user.username}) }}" title="Modification"><i class="fa fa-edit"></i></a></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="text-white card-title mb-5">Enregistrement</h4>
+                        {{ include('user/_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .user select option{
+            color: black;
+        }
+        .user input{
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}

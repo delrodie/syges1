@@ -69,14 +69,15 @@
                         </ul>
                     </li>
 
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect waves-light"><i class="mdi mdi-account"></i><span> Paramètre </span> </a>
+                            <ul class="list-unstyled">
+                                <li><a href="{{ path('admin_user_index') }}"> Utilisateur</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
 
-                    <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect waves-light"><i class="mdi mdi-account"></i><span> Paramètre </span> </a>
-                        <ul class="list-unstyled">
-                            <li><a href="#"> Gestionnaire</a></li>
-                            <li><a href="#"> Utilisateur</a></li>
-                        </ul>
-                    </li>
 
                     <!--<li class="menu-title">Archives</li>
 
