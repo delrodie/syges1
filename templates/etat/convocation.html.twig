@@ -54,15 +54,15 @@
                                         <td class="text-center">{{ scolarite.eleve.dateNaissance|date('d/m/Y') }}</td>
                                         <td>{{ scolarite.eleve.lieuNaissance|title }}</td>
                                         <td class="text-left">{{ scolarite.eleve.sexe }}</td>
-                                        <td class="text-right pr-3">{{ scolarite.verse|number_format(0,'','.') }}</td>
-                                        <td class="text-right pr-3">{{ scolarite.restant|number_format(0,'','.') }}</td>
+                                        <td class="text-right pr-3">{{ scolarite.verse|number_format(0,'',' ') }}</td>
+                                        <td class="text-right pr-3">{{ scolarite.restant|number_format(0,'',' ') }}</td>
                                         <td>
                                             {{ scolarite.statut? "<span class='badge badge-success'>Soldé</span>" : "<span class='badge badge-danger'>Non soldé</span>" }}
                                         </td>
                                     </tr>
                                 {% else %}
                                     <tr>
-                                        <td colspan="8" class="text-center"><em>Aucun élève</em></td>
+                                        <td colspan="10" class="text-center"><em>Aucun élève</em></td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

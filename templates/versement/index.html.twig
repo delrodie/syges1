@@ -37,8 +37,8 @@
                                         <td class="text-center">{{ versement.createdAt|date('Y-m-d H:i:s') }}</td>
                                         <td class="text-center">{{ versement.classe.libelle }}</td>
                                         <td class="text-left">{{ versement.eleve.nom|upper }} {{ versement.eleve.prenoms|title }}</td>
-                                        <td class="text-right pr-1">{{ versement.verse|number_format(0,'','.') }}</td>
-                                        <td class="text-right pr-1">{{ versement.restant|number_format(0,'','.') }}</td>
+                                        <td class="text-right pr-1">{{ versement.verse|number_format(0,'',' ') }}</td>
+                                        <td class="text-right pr-1">{{ versement.restant|number_format(0,'',' ') }}</td>
                                         <td class="text-center">
                                             <a href="{{ path('versement_show', {'id': versement.id}) }}"><i class="fa fa-eye"></i></a> |
                                             <a href="{{ path('versement_edit', {'id': versement.id}) }}"><i class="fa fa-edit"></i></a>

@@ -48,6 +48,7 @@ class VersementController extends AbstractController
      */
     public function new(Request $request, Eleve $eleve): Response
     {
+        $user = $this->getUser();
         $annee = $this->gestionEleve->annee();
         $scolarite = $this->em->getRepository("App:Scolarite")->findOneBy(['eleve'=>$eleve->getId(), 'annee'=>$annee]);
 
@@ -84,6 +85,7 @@ class VersementController extends AbstractController
             $versement->setAnnee($annee);
             $versement->setRestant($restant);
             $versement->setClasse($eleve->getClasse());
+            $versement->setCreatedBy($user->getUsername());
 
             $entityManager->persist($versement);
             $entityManager->flush();

@@ -51,6 +51,7 @@ class InscriptionController extends AbstractController
      */
     public function new(Request $request, Eleve $eleve): Response
     {
+        $user = $this->getUser();
         $inscription = new Inscription();
         $form = $this->createForm(InscriptionType::class, $inscription, ['eleve'=>$eleve]);
         $form->handleRequest($request);
@@ -92,6 +93,7 @@ class InscriptionController extends AbstractController
             $inscription->setAnnee($annee);
             $inscription->setRestant($restant);
             $inscription->setNumero($recu);
+            $inscription->setCreatedBy($user->getUsername());
 
             $entityManager->persist($inscription);
             $entityManager->flush();
