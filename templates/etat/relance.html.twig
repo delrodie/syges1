@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Relance{% endblock %}
+
+{% block body %}
+
+    <div class="content-fluid text-white">
+        <div class="row print">
+            <div class="col-lg-12">
+                <div class="card px-2">
+                    {% for scolarite in scolarites %}
+                        <div class="card-body text-white" id="impression" style="font-size: 1.2rem;">
+                            <div class="container-fluid d-flex justify-content-between pl-5 pr-5">
+                                <div class="col-lg-6">
+                                    <p class="mt-0 mb-0">
+                                        <b>GROUPE SCOLAIRE LES SERAPHINS ABOBO AGBEKOIA-CI
+                                        </b>
+                                    </p>
+                                    <p class="mb-0 ">Adresse : 09 BP 937 ABIDJAN 09</p>
+                                    <p>Tél. : +225 24 47 77 42</p>
+                                </div>
+                                <div class="col-lg-6 pr-0">
+                                    <p class="mt-0 mb-0 text-right"><b>REPUBLIQUE DE COTE D'IVOIRE</b></p>
+                                    <p class="text-right mr-2">UNION - DISCIPLINE - TRAVAIL</p>
+                                    <p class="mb-0 text-right" style="font-size: 0.8rem; margin-right: 20px;">ANNEE SCOLAIRE <b>2020-2021</b></p>
+                                </div>
+                            </div>
+                            <div class="container-fluid d-flex justify-content-between pl-5 pr-5">
+                                <div class="col-lg-4 offset-4 pl-0 text-center">
+                                    <div class="row">
+                                        <div class="col-8 offset-0" style="border-bottom:#ececec dotted 1px; ">
+                                            <p class="mb-0 mt-0"><b><strong>RELANCE DU 11/09/2020</strong></b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                            <div class="container-fluid mt-5 pl-5 pr-5">
+
+                                <div class="row mb-1">
+                                    <div class="col-6 mb-1">
+                                        A <b><strong>{{  scolarite.eleve.nom|upper }} {{ scolarite.eleve.prenoms|upper }}</strong></b>
+                                    </div>
+                                    <div class="col-6">
+                                        dont le matricule est : <b><strong>{{ scolarite.eleve.matricule }}</strong></b>.
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 mb-2">
+                                        Inscrite au : <strong>{{ classe.libelle }}</strong>, vous êtes priée de passer avant <strong>Date echeance</strong>
+                                        à la comptabilité pour regler, au titre des frais de scolarité,
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 mb-1">
+                                        un montant de <strong>{{ scolarite.restant|number_format(0,'','.') }} FCFA</strong> restant sur <strong>{{ scolarite.total|number_format(0,'','.') }} FCFA</strong> dû à la fin du mois de <strong>JUILLET 2021.</strong>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-1"><strong><u>Rappel</u></strong></div>
+                                    <div class="col-3">Votre scolarité est de <strong>{{ scolarite.total|number_format(0,'','.') }} FCFA</strong></div>
+                                    <div class="col-3">versé: <strong>{{ scolarite.verse|number_format(0,'','.') }} FCFA</strong></div>
+                                    <div class="col-3"> Solde: <strong>{{  scolarite.restant|number_format(0,'','.') }} FCFA</strong></div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="col-1"><strong></strong></div>
+                                    <div class="col-3">Versmeents Annexes: <strong></strong></div>
+                                    <div class="col-3">versé: <strong>0 F</strong></div>
+                                    <div class="col-3"> Solde: <strong>0</strong></div>
+                                </div>
+                                <div class="row mt-5 mb-5">
+                                    <div class="col-6 text-center"><strong>Sauf erreur</strong></div>
+                                    <div class="col-6"><strong><u>La comptabilité</u></strong></div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    {% endfor %}
+                    <div class="row mb-5">
+                        <div class="col-lg-12">
+                            <div class="container-fluid w-100">
+                                <a href="{{ path('etat_convocation') }}" class="btn btn-outline-primary float-right mt-4 ml-2 text-white">Retour</a>
+                                <a href="#" onclick="imprimer('impression')" class="btn btn-primary float-right mt-4 ml-2">
+                                    <i class="fa fa-print mr-1"></i>Imprimer
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/css/print.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function imprimer(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+    </script>
+{% endblock %}

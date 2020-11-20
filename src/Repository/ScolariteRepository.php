@@ -45,7 +45,7 @@ class ScolariteRepository extends ServiceEntityRepository
             ->leftJoin('s.eleve', 'e')
             ->leftJoin('e.classe', 'c')
             ->where('s.annee = :annee')
-            ->andWhere('e.classe = :classe')
+            ->andWhere('c.libelle = :classe')
             ->orderBy('e.nom', "ASC")
             ->addOrderBy('e.prenoms', "ASC")
             ->setParameters([

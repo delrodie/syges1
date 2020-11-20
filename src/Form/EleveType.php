@@ -19,8 +19,8 @@ class EleveType extends AbstractType
             //->add('matricule')
             ->add('nom', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Nom de famille",'autocomplete'=>"off"]])
             ->add('prenoms', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Prenoms",'autocomplete'=>"off"]])
-            ->add('dateNaissance', TextType::class,['attr'=>['class'=>'form-control', 'autocomplete'=>"off",'placeholder'=>"Date de naissance"]])
-            ->add('lieuNaissance', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Lieu de naissance",'autocomplete'=>"off"]])
+            ->add('dateNaissance', TextType::class,['attr'=>['class'=>'form-control', 'autocomplete'=>"off",'placeholder'=>"Date de naissance"], 'required'=>false])
+            ->add('lieuNaissance', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Lieu de naissance",'autocomplete'=>"off"], 'required'=>false])
             ->add('sexe', ChoiceType::class,[
                 'attr'=>['class'=>'form-control'],
                 'choices'=>[
@@ -29,16 +29,16 @@ class EleveType extends AbstractType
                     'FILLE' => 'FILLE'
                 ]
             ])
-            ->add('nationalite', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Nationalité",'autocomplete'=>"on"]])
+            ->add('nationalite', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Nationalité",'autocomplete'=>"on"], 'required'=>false])
             ->add('domicile', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Domicile",'autocomplete'=>"off"], 'required'=>false ])
-            ->add('nomParent', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Nom et prenoms du parent",'autocomplete'=>"off"]])
+            ->add('nomParent', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Nom et prenoms du parent",'autocomplete'=>"off"], 'required'=>false])
             ->add('professionParent', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Profession du parent",'autocomplete'=>"off"], 'required'=>false])
-            ->add('contactParent', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Contact du parent",'autocomplete'=>"off"]])
-            ->add('residence', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Lieu de résidence du parent",'autocomplete'=>"off"]])
-            ->add('nomTuteur', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Nom et prenoms du tuteur",'autocomplete'=>"off"]])
-            ->add('professionTuteur', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Profession du tuteur",'autocomplete'=>"off"]])
-            ->add('contactTuteur', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Contact du tuteur",'autocomplete'=>"off"]])
-            ->add('residenceTuteur', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Lieu de residence",'autocomplete'=>"off"]])
+            ->add('contactParent', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Contact du parent",'autocomplete'=>"off"], 'required'=>false])
+            ->add('residence', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Lieu de résidence du parent",'autocomplete'=>"off"], 'required'=>false])
+            ->add('nomTuteur', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Nom et prenoms du tuteur",'autocomplete'=>"off"], 'required'=>false])
+            ->add('professionTuteur', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Profession du tuteur",'autocomplete'=>"off"], 'required'=>false])
+            ->add('contactTuteur', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Contact du tuteur",'autocomplete'=>"off"], 'required'=>false])
+            ->add('residenceTuteur', TextType::class,['attr'=>['class'=>"form-control", 'placeholder'=>"Lieu de residence",'autocomplete'=>"off"], 'required'=>false])
             //->add('annee')
             ->add('classe', EntityType::class,[
                 'attr'=>['class'=>'form-control js-select2'],

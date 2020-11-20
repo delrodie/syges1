@@ -60,10 +60,10 @@ class EtatController extends AbstractController
         $search_class = $request->get('search_classe');
         if ($search_class){
             $classe = $this->em->getRepository("App:Classe")->findOneBy(['id'=>$search_class])->getLibelle();
-            $scolarites = $this->em->getRepository("App:Scolarite")->findByAnneeAndClasse($annee, $search_class);
+            $scolarites = $this->em->getRepository("App:Scolarite")->findByAnneeAndClasse($annee, $classe);
         }else{
             $classe = "CP1";
-            $scolarites = $this->em->getRepository("App:Scolarite")->findByAnneeAndClasse($annee, 1);
+            $scolarites = $this->em->getRepository("App:Scolarite")->findByAnneeAndClasse($annee, $classe);
         } //dd($scolarites);
 
         return $this->render('etat/convocation.html.twig',[
@@ -71,6 +71,23 @@ class EtatController extends AbstractController
             'annee' => $annee,
             'classe' => $classe,
             'classes' => $classes
+        ]);
+    }
+
+    /**
+     * @Route("/convocation/{classe}", name="etat_convacation_relance", methods={"GET","POST"})
+     */
+    public function relance(Request $request, $classe)
+    {
+        $annee = $this->gestionEleve->annee();
+        $class = $this->em->getRepository("App:Classe")->findOneBy(['libelle'=>$classe]); //dd($class->getId());
+        $scolarites = $this->em->getRepository("App:Scolarite")->findByAnneeAndClasse($annee, $classe);
+
+
+        return $this->render('etat/relance.html.twig',[
+            'scolarites' => $scolarites,
+            'annee' => $annee,
+            'classe' => $class,
         ]);
     }
 }
