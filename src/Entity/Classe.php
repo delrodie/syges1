@@ -20,7 +20,7 @@ class Classe
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=3)
+     * @ORM\Column(type="string", length=225)
      */
     private $libelle;
 

@@ -93,6 +93,12 @@ class EtatController extends AbstractController
 
             $date_echeance = '05/'.$mois.'/'.$annee_encours;
             $date_encours = $jour_encours.'/'.$mois_encours.'/'.$annee_encours;
+        }else{
+            if ($mois_encours === 12) $mois = 01;
+            else $mois = $mois_encours;
+
+            $date_echeance = '05/'.$mois.'/'.$annee_encours;
+            $date_encours = $jour_encours.'/'.$mois_encours.'/'.$annee_encours;
         }
 
         return $this->render('etat/relance.html.twig',[
