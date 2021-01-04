@@ -1,0 +1,85 @@
+{% extends 'base_imprime.html.twig' %}
+{% block title %}RELANCE DU {{ date_jour }}{% endblock %}
+
+{% block body %}
+    {% for scolarite in scolarites %}
+        
+        <table width="100%" style="page-break-inside: avoid;">
+            <tr>
+                <td style="text-align:center;">GROUPE SCOLAIRE LES SERAPHINS ABOBO </td>
+                <td style="text-align: center;">REPUBLIQUE DE COTE D'IVOIRE</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">AGBEKOIA-CI</td>
+                <td style="text-align:center;">UNION - DISCIPLINE - TRAVAIL</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">Adresse : 09 BP 937 ABIDJAN 09</td>
+                <td style="text-align: center; font-size: .9rem;">ANNEE SCOLAIRE <b>2020-2021</b></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center; padding-top: 10px;" >
+                    <table width="100%">
+                        <tr>
+                            <td style="width: 33%"></td>
+                            <td style="text-align: center; border: 1px solid #3a3c3f; padding-top: 10px; padding-bottom: 10px; ">RELANCE DU {{ date_jour }}</td>
+                            <td style="width: 33%;"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table width="100%">
+                        <tr>
+                            <td style="padding-top: 5px;">
+                                A <b><strong>{{  scolarite.eleve.nom|upper }} {{ scolarite.eleve.prenoms|upper }}</strong></b> &nbsp;
+                                dont le matricule est : <b><strong>{{ scolarite.eleve.matricule }}</strong></b>.
+                                Inscrit(e)
+                                au : <strong>{{ classe.libelle }}</strong>, vous êtes prié(e) de passer avant le <strong>{{  date_echeance }}</strong>
+                                à la comptabilité pour regler, au titre des frais de scolarité,
+                                un montant de <strong>{{ scolarite.restant|number_format(0,'','.') }} FCFA</strong> restant sur <strong>{{ scolarite.total|number_format(0,'','.') }} FCFA</strong> dû à la fin du mois de <strong>JUILLET 2021.</strong>
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table width="100%">
+                        <tr>
+                            <td width="10%" style="text-align: left"><strong><u>Rappel</u></strong></td>
+                            <td width="40%">Votre scolarité est de <strong>{{ scolarite.total|number_format(0,'','.') }} FCFA</strong></td>
+                            <td width="25%">Versé: <strong>{{ scolarite.verse|number_format(0,'','.') }} FCFA</strong></td>
+                            <td width="25%">Solde: <strong>{{  scolarite.restant|number_format(0,'','.') }} FCFA</strong></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table width="100%">
+                        <tr>
+                            <td width="10%" style="text-align: left"><strong></strong></td>
+                            <td width="40%">Versement annexe<strong></strong></td>
+                            <td width="25%">Versé: <strong>{{ 0|number_format(0,'','.') }} FCFA</strong></td>
+                            <td width="25%">Solde: <strong>{{  0|number_format(0,'','.') }} FCFA</strong></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr style="">
+                <td style="text-align: center; padding-top: 10px;">Sauf erreur</td>
+                <td style="text-align: center; padding-top: 10px;"><u>La compatbilité</u></td>
+            </tr>
+            {% if not loop.last%}
+                <tr>
+                    <td colspan="2" style="border-bottom: dotted 1px #252c2f; padding-top: 30px;"></td>
+                </tr>
+            {% endif %}
+
+        </table>
+    {% endfor %}
+
+{% endblock %}

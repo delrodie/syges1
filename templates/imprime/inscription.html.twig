@@ -1,11 +1,15 @@
 {% extends 'base_imprime.html.twig' %}
-{% block title %}RECU D'IMPRESSION N°:{{ inscription.numero }} {% endblock %}
+{% block title %}RECU D'INSCRIPTION N°:{{ inscription.numero }} {% endblock %}
 
 {% block body %}
     {% for i in 1..2 %}
 
-
-        <table width="100%" {% if i==2 %} style="padding-top: 60px;" {% endif %}>
+        <table width="100%" {% if i==2 %} style="padding-top: 60px;"{% endif %}>
+            {% if i == 1 %}
+                <tr>
+                    <td colspan="2" style="border-top: dotted 1px #93aac3; padding-top: 20px;"></td>
+                </tr>
+            {% endif %}
             <tr>
                 <td style="text-align:center;">GROUPE SCOLAIRE LES SERAPHINS ABOBO </td>
                 <td style="text-align: center;">REPUBLIQUE DE COTE D'IVOIRE</td>
@@ -23,7 +27,7 @@
                     <table width="100%">
                         <tr>
                             <td style="width: 33%"></td>
-                            <td style="text-align: center; border: 1px solid #3a3c3f; padding-top: 10px; padding-bottom: 10px; ">RECU DE inscription</td>
+                            <td style="text-align: center; border: 1px solid #3a3c3f; padding-top: 10px; padding-bottom: 10px; ">RECU D'INSCRIPTION</td>
                             <td style="width: 33%;"></td>
                         </tr>
                     </table>
