@@ -9,6 +9,8 @@ use App\Repository\VersementRepository;
 use App\Utilities\GestionEleve;
 use App\Utilities\GestionImpression;
 use Doctrine\ORM\EntityManagerInterface;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -124,6 +126,7 @@ class VersementController extends AbstractController
             'scolarite' => $scolarite,
             'montant_lettre' => $this->gestionImpression->nombre_en_lettre($versement->getVerse())
         ]);
+
     }
 
     /**
