@@ -82,88 +82,12 @@
                                 </div>
                             </div>
                         </div>
-                        <hr>
-                        <!-- DEUXIEME PAGE -->
-                        <div class="container-fluid d-flex justify-content-between" style="font-size: 1.2rem;">
-                            <div class="col-lg-6 pl-0">
-                                <p class="mt-5 mb-2">
-                                    <b>GROUPE SCOLAIRE LES SERAPHINS ABOBO <br>
-                                        <span style="margin-left: 100px;">AGBEKOIA-CI</span>
-                                    </b>
-                                </p>
-                                <p class="mb-0 ">Adresse : 09 BP 937 ABIDJAN 09</p>
-                                <p>Tél. : +225 58 90 58 32 / 41 33 03 04</p>
-                            </div>
-                            <div class="col-lg-6 pr-0">
-                                <p class="mt-5 mb-2 text-right"><b>REPUBLIQUE DE COTE D'IVOIRE</b></p>
-                                <p class="text-right mr-2">UNION - DISCIPLINE - TRAVAIL</p>
-                                <p class="mb-0 text-right" style="font-size: 0.8rem; margin-right: 20px;">ANNEE SCOLAIRE <b>2020-2021</b></p>
-                            </div>
-                        </div>
-                        <div class="container-fluid d-flex justify-content-between" style="font-size: 1.2rem;">
-                            <div class="col-lg-4 offset-4 pl-0 text-center">
-                                <div class="row">
-                                    <div class="col-8 offset-0" style="border:#ececec solid 1px; ">
-                                        <p class="mb-3 mt-3"><b>RECU D'INSCRIPTION</b></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                        </div>
-                        <div class="container-fluid mt-5" style="font-size: 1.2em;">
-                            <div class="row mb-2">
-                                <div class="col-4 offset-8">
-                                    <p >N°RECU: <b>{{ inscription.numero }}</b></p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <p>Matricule: <b>{{ eleve.matricule }}</b></p>
-                                </div>
-                                <div class="col-4">
-                                    <p>Statut: <b>NON AFFECTE(E)</b></p>
-                                </div>
-                                <div class="col-4">
-                                    <p>Date: <b>{{ inscription.date|date('d/m/Y') }}</b></p>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-8">
-                                    <p>Nom & prénoms: <b>{{eleve.nom|upper}} {{ eleve.prenoms|upper }}</b></p>
-                                </div>
-                                <div class="col-4">
-                                    <p>Classe: <b>{{ inscription.classe.libelle }} </b></p>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-4">
-                                    <p>Total à payer: <b>{{ inscription.classe.scolarite|number_format(0,'','.') }} </b>FCFA</p>
-                                </div>
-                                <div class="col-4">
-                                    <p>Montant versé: <b>{{ inscription.verse|number_format(0,'','.')}} </b>FCFA</p>
-                                </div>
-                                <div class="col-4">
-                                    <p>Montant resté: <b>{{ inscription.restant|number_format(0,'','.')}}</b> FCFA</p>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-12">
-                                    <p>Montant en lettre: <b>{{ montant_lettre|upper }}</b></p>
-                                </div>
-                           </div>
-                            <div class="row mt-2">
-                                <div class="col-4 offset-8">
-                                    <p class="text-center"><u>CAISSIER(E)</u><br><br>{{ inscription.createdBy|title }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- FIN DEUXIEME PAGE -->
                     </div>
                     <div class="row mb-5">
                         <div class="col-lg-12">
                             <div class="container-fluid w-100">
                                 <a href="{{ path('eleve_show', {'id': inscription.eleve.id}) }}" class="btn btn-outline-primary float-right mt-4 ml-2 text-white">Retour</a>
-                                <a href="#" onclick="imprimer('impression')" class="btn btn-primary float-right mt-4 ml-2">
+                                <a href="{{ path('imprimer_inscription', {'id': inscription.id}) }}" class="btn btn-primary float-right mt-4 ml-2" target="_blank">
                                     <i class="fa fa-print mr-1"></i>Imprimer
                                 </a>
                             </div>

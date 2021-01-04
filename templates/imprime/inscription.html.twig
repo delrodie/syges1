@@ -1,0 +1,95 @@
+{% extends 'base_imprime.html.twig' %}
+{% block title %}RECU D'IMPRESSION N°:{{ inscription.numero }} {% endblock %}
+
+{% block body %}
+    {% for i in 1..2 %}
+
+
+        <table width="100%" {% if i==2 %} style="padding-top: 60px;" {% endif %}>
+            <tr>
+                <td style="text-align:center;">GROUPE SCOLAIRE LES SERAPHINS ABOBO </td>
+                <td style="text-align: center;">REPUBLIQUE DE COTE D'IVOIRE</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">AGBEKOIA-CI</td>
+                <td style="text-align:center;">UNION - DISCIPLINE - TRAVAIL</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">Adresse : 09 BP 937 ABIDJAN 09</td>
+                <td style="text-align: center; font-size: .9rem;">ANNEE SCOLAIRE <b>2020-2021</b></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center; margin-top: 25px; padding-top: 30px;" >
+                    <table width="100%">
+                        <tr>
+                            <td style="width: 33%"></td>
+                            <td style="text-align: center; border: 1px solid #3a3c3f; padding-top: 10px; padding-bottom: 10px; ">RECU DE inscription</td>
+                            <td style="width: 33%;"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding-left: 25px; padding-top: 25px;">N°RECU: <b>{{ inscription.numero }}</b></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table width="100%">
+                        <tr>
+                            <td>Matricule: <b>{{ eleve.matricule }}</b></td>
+                            <td>Statut: <b>NON AFFECTE</b></td>
+                            <td>Date: <b>{{ inscription.date|date('d/m/Y') }}</b></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table width="100%">
+                        <tr>
+                            <td width="70%">Nom & prénoms: <b>{{eleve.nom|upper}} {{ eleve.prenoms|upper }}</b></td>
+                            <td>Classe: <b>{{ inscription.classe.libelle }} </b></td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table width="100%">
+                        <tr>
+                            <td>Total à payer: <b>{{ inscription.classe.scolarite|number_format(0,'','.') }} </b>FCFA</td>
+                            <td>Montant versé: <b>{{ inscription.verse|number_format(0,'','.')}} </b>FCFA</td>
+                            <td>Montant restant: <b>{{ inscription.restant|number_format(0,'','.')}}</b> FCFA</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table width="100%">
+                        <tr>
+                            <td>Montant en lettre: <b>{{ montant_lettre|upper }}</b></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="text-align: center; padding-top: 15px;"><u>CAISSIER(E)</u></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="text-align: center; padding-top: 15px;">{{ inscription.createdBy|title }}</td>
+            </tr>
+            {% if i == 1 %}
+                <tr>
+                    <td colspan="2" style="border-bottom: dotted 1px #93aac3; padding-top: 30px;"></td>
+                </tr>
+            {% endif %}
+
+        </table>
+    {% endfor %}
+
+{% endblock %}

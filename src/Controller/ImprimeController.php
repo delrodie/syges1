@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Eleve;
+use App\Entity\Inscription;
 use App\Entity\Versement;
 use App\Utilities\GestionEleve;
 use App\Utilities\GestionImpression;
@@ -73,6 +75,52 @@ class ImprimeController extends AbstractController
 
         // On génère le nom du fichier
         $fichier = 'Versement-recu-N°:'.$versement->getNumero().'.pdf';
+
+        // On envoie le PDF au navigateur
+        $dompdf->stream($fichier,[
+            'Attachement' => false
+        ]);
+
+        return new Response();
+    }
+
+    /**
+     * @Route("/inscription/{id}", name="imprimer_inscription", methods={"GET"})
+     */
+    public function inscription(Inscription $inscription)
+    {
+        // O definit les options du PDF
+        $pdfOptions = new Options();
+
+        // Definiton de la police par defaut
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->setIsRemoteEnabled(true);
+        $pdfOptions->setIsHtml5ParserEnabled(true);
+
+        // On instancie Dompdf
+        $dompdf = new Dompdf($pdfOptions);
+        $context = stream_context_create([
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            ]
+        ]);
+        $dompdf->setHttpContext($context);
+
+        $montant_lettre = $this->gestionImpression->nombre_en_lettre($inscription->getVerse());
+        $html =  $this->render('imprime/inscription.html.twig', [
+            'inscription' => $inscription,
+            'eleve' => $this->em->getRepository(Eleve::class)->findOneBy(['id'=>$inscription->getEleve()->getId()]),
+            'montant_lettre' => $montant_lettre
+        ]);
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // On génère le nom du fichier
+        $fichier = 'Inscription-recu-N°:'.$inscription->getNumero().'.pdf';
 
         // On envoie le PDF au navigateur
         $dompdf->stream($fichier,[
