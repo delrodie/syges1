@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Classe;
+use App\Entity\Scolarite;
 use App\Utilities\GestionEleve;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -107,6 +109,31 @@ class EtatController extends AbstractController
             'classe' => $class,
             'date_echeance' => $date_echeance,
             'date_jour' => $date_encours
+        ]);
+    }
+
+    /**
+     * @Route("/scolarite/listes/imprime", name="etat_scolarite", methods={"GET", "POST"})
+     */
+    public function scolarite(Request $request)
+    {
+        $annee = $this->gestionEleve->annee();
+        $classes = $this->getDoctrine()->getRepository(Classe::class)->findAll();
+
+        $search_class = $request->get('search_classe');
+        if ($search_class){
+            $classe = $this->getDoctrine()->getRepository(Classe::class)->findOneBy(['id'=>$search_class])->getLibelle();
+            $scolarites = $this->getDoctrine()->getRepository(Scolarite::class)->findByAnneeAndClasse($annee, $classe);
+        }else{
+            $scolarites = $this->getDoctrine()->getRepository(Scolarite::class)->findByAnnee($annee);
+            $classe = null;
+        } //dd($scolarites);
+
+        return $this->render('etat/scolarite.html.twig',[
+            'classe' => $classe,
+            'classes' => $classes,
+            'scolarites' => $scolarites,
+            'annee' => $annee
         ]);
     }
 }

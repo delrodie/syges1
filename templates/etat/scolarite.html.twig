@@ -1,15 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} Gestion des versments{% endblock %}
-
-
+{% block title %}{{ parent() }} Gestion des scolarites {% endblock %}
 
 {% block body %}
     <div class="content-fluid">
         <div class="row">
             <div class="col-sm-12">
                 <div class="page-title-box">
-                    <h4 class="page-title">Liste des versements {{ annee }}</h4>
+                    <h4 class="page-title">Liste des scolarites {{ annee }}</h4>
                 </div>
             </div>
         </div>
@@ -17,7 +15,7 @@
             <div class="card-body">
                 <div class="row mb-5">
                     <div class="col-4 offset-4 text-right recherche">
-                        <form action="{{ path('versement_index') }}" method="post" onchange="return this.submit()">
+                        <form action="{{ path('etat_scolarite') }}" method="post" onchange="return this.submit()">
                             <select name="search_classe" class="form-control">
                                 <option value="" selected>Recherche...</option>
                                 <option value=""></option>
@@ -29,7 +27,10 @@
                     </div>
                     {% if classe %}
                         <div class="col-4 text-center">
-                            <a href="{{ path('imprime_convocation_classe', {'classe': classe}) }}" class="btn btn-primary" target="_blank">Imprimer</a>
+                            <form action="{{ path('imprime_scolarite') }}" method="post" onchange="return this.submit()">
+                                <input type="hidden" name="classe" value="{{ classe }}">
+                                <input type="submit" class="btn btn-primary" value="Imprimer">
+                            </form>
                         </div>
                     {% endif %}
                 </div>
@@ -40,31 +41,27 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center">Id</th>
-                                    <th class="text-center">Date</th>
                                     <th class="text-center">Classe</th>
                                     <th class="text-center">Elève</th>
+                                    <th class="text-center">Montant Scolarite</th>
                                     <th class="text-center">Montant versé</th>
                                     <th class="text-center">Montant restant</th>
-                                    <th class="text-center">actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for versement in versements %}
+                                {% for scolarite in scolarites %}
                                     <tr class="text-center">
-                                        <td class="text-center"># {{ loop.index }}</td>
-                                        <td class="text-center">{{ versement.createdAt|date('Y-m-d H:i:s') }}</td>
-                                        <td class="text-center">{{ versement.classe.libelle }}</td>
-                                        <td class="text-left">{{ versement.eleve.nom|upper }} {{ versement.eleve.prenoms|title }}</td>
-                                        <td class="text-right pr-1">{{ versement.verse|number_format(0,'',' ') }}</td>
-                                        <td class="text-right pr-1">{{ versement.restant|number_format(0,'',' ') }}</td>
-                                        <td class="text-center">
-                                            <a href="{{ path('versement_show', {'id': versement.id}) }}"><i class="fa fa-eye"></i></a> |
-                                            <a href="{{ path('versement_edit', {'id': versement.id}) }}"><i class="fa fa-edit"></i></a>
-                                        </td>
+                                        <td class="text-center">{{ loop.index }}</td>
+                                        <td class="text-center">{{ scolarite.eleve.classe.libelle }}</td>
+                                        <td class="text-left">{{ scolarite.eleve.nom|upper }} {{ scolarite.eleve.prenoms|title }}</td>
+                                        <td class="text-right pr-1">{{ scolarite.total|number_format(0,'',' ') }}</td>
+                                        <td class="text-right pr-1">{{ scolarite.verse|number_format(0,'',' ') }}</td>
+                                        <td class="text-right pr-1">{{ scolarite.restant|number_format(0,'',' ') }}</td>
+
                                     </tr>
                                 {% else %}
                                     <tr>
-                                        <td colspan="6" class="text-center"><em>Aucun versement n'a été effectué cette année</em></td>
+                                        <td colspan="6" class="text-center"><em>Aucun scolarite n'a été effectué cette année</em></td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

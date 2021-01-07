@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Classe;
 use App\Entity\Eleve;
 use App\Entity\Versement;
 use App\Form\VersementType;
@@ -34,14 +35,27 @@ class VersementController extends AbstractController
     }
 
     /**
-     * @Route("/", name="versement_index", methods={"GET"})
+     * @Route("/", name="versement_index", methods={"GET","POST"})
      */
-    public function index(VersementRepository $versementRepository): Response
+    public function index(Request $request, VersementRepository $versementRepository): Response
     {
         $annee = $this->gestionEleve->annee();
+
+        // S'il y a une requete a été effectuée
+        $search_class = $request->get('search_classe'); //dd($search_class);
+        if ($search_class){
+            $classe = $this->getDoctrine()->getRepository(Classe::class)->findOneBy(['id'=>$search_class])->getLibelle();
+            $versements = $versementRepository->findByAnnee($annee, $classe);
+        }else{
+            $versements = $versementRepository->findByAnnee($annee);
+            $classe = null;
+        }
+
         return $this->render('versement/index.html.twig', [
-            'versements' => $versementRepository->findByAnnee($annee),
-            'annee' => $annee
+            'versements' => $versements,
+            'annee' => $annee,
+            'classes' => $this->getDoctrine()->getRepository(Classe::class)->findAll(),
+            'classe' => $classe
         ]);
     }
 

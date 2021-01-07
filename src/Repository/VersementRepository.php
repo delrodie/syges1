@@ -19,17 +19,27 @@ class VersementRepository extends ServiceEntityRepository
         parent::__construct($registry, Versement::class);
     }
 
-    public function findByAnnee($annee)
+    public function findByAnnee($annee, $classe = null)
     {
-        return $this->createQueryBuilder('v')
+        $q = $this->createQueryBuilder('v')
             ->addSelect('e')
             ->addSelect('c')
             ->leftJoin('v.eleve', 'e')
             ->leftJoin('v.classe', 'c')
-            ->where('v.annee = :annee')
-            ->setParameter('annee', $annee)
-            ->getQuery()->getResult()
-            ;
+            ->where('v.annee = :annee');
+
+        if ($classe){
+            $q->andWhere('c.libelle = :classe')
+                ->setParameters([
+                    'annee' => $annee,
+                    'classe' => $classe
+                ]);
+        }else{
+            $q->setParameter('annee', $annee);
+        }
+
+        return $q->getQuery()->getResult();
+
     }
 
     // /**

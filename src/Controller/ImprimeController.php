@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -32,6 +33,79 @@ class ImprimeController extends AbstractController
         $this->em = $em;
         $this->gestionEleve = $gestionEleve;
         $this->gestionImpression = $gestionImpression;
+    }
+
+    /**
+     * @Route("/", name="imprime_scolarite", methods={"GET", "POST"})
+     */
+    public function scolarite(Request $request)
+    {
+        $annee = $this->gestionEleve->annee();
+        $classes = $this->getDoctrine()->getRepository(Classe::class)->findAll();
+
+        $classe = $request->get('classe');
+        if ($classe){
+            //$classe = $this->getDoctrine()->getRepository(Classe::class)->findOneBy(['id'=>$search_class])->getLibelle();
+            $scolarites = $this->getDoctrine()->getRepository(Scolarite::class)->findByAnneeAndClasse($annee, $classe);
+            $garcon = 0; $fille = 0;
+            $total = 0; $verse = 0; $reste = 0;
+            foreach ($scolarites as $scolarite){
+                $sexe = $scolarite->getEleve()->getSexe();
+                if ($sexe === 'FILLE') $fille = $fille + 1;
+                else $garcon = $garcon + 1;
+
+                $total = $total + $scolarite->getTotal();
+                $verse = $verse + $scolarite->getVerse();
+                $reste = $reste + $scolarite->getRestant();
+            }
+        }else{
+            return $this->redirectToRoute('etat_scolarite');
+        }
+
+        // O definit les options du PDF
+        $pdfOptions = new Options();
+
+        // Definiton de la police par defaut
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->setIsRemoteEnabled(true);
+        $pdfOptions->setIsHtml5ParserEnabled(true);
+        $pdfOptions->setIsPhpEnabled(true);
+
+        // On instancie Dompdf
+        $dompdf = new Dompdf($pdfOptions);
+        $context = stream_context_create([
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            ]
+        ]);
+        $dompdf->setHttpContext($context);
+
+        $html = $this->render('imprime/scolarite.html.twig',[
+            'classe' => $classe,
+            'classes' => $classes,
+            'scolarites' => $scolarites,
+            'garcon' => $garcon,
+            'fille' => $fille,
+            'tot_scolarite' => $total,
+            'tot_verse' => $verse,
+            'tot_reste' => $reste
+        ]);
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // On génère le nom du fichier
+        $fichier = 'scolarite-'.$classe.'.pdf';
+
+        // On envoie le PDF au navigateur
+        $dompdf->stream($fichier,[
+            'Attachement' => false
+        ]);
+
+        return new Response();
     }
 
     /**
@@ -201,4 +275,6 @@ class ImprimeController extends AbstractController
 
         return new Response();
     }
+
+
 }

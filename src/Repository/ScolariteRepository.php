@@ -25,7 +25,7 @@ class ScolariteRepository extends ServiceEntityRepository
             ->addSelect('e')
             ->addSelect('c')
             ->leftJoin('s.eleve', 'e')
-            ->leftJoin('s.classe', 'c')
+            ->leftJoin('e.classe', 'c')
             ->where('s.annee = :annee')
             ->setParameter('annee', $annee)
             ->getQuery()->getResult()

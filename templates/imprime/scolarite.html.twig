@@ -1,0 +1,96 @@
+{% extends 'base_imprime.html.twig' %}
+{% block title %}Scolarite {{ classe }}{% endblock %}
+{% block body %}
+    <table width="100%" style="padding-top: 20px; border-top: dotted 1px #272c30;">
+        <tr>
+            <td style="text-align:center;">GROUPE SCOLAIRE LES SERAPHINS ABOBO </td>
+            <td style="text-align: center;">REPUBLIQUE DE COTE D'IVOIRE</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">AGBEKOIA-CI</td>
+            <td style="text-align:center;">UNION - DISCIPLINE - TRAVAIL</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">Adresse : 09 BP 937 ABIDJAN 09</td>
+            <td style="text-align: center; font-size: .9rem;">ANNEE SCOLAIRE <b>2020-2021</b></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="margin-top: 25px; padding-top: 30px;" >
+                <table width="100%">
+                    <tr>
+                        <td colspan="3"><u>Classe</u>: <strong>{{ classe }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td><u>Effectif</u> : <strong>{{ scolarites|length }}</strong></td>
+                        <td><u>Garçons</u> : <strong>{{ garcon }}</strong></td>
+                        <td><u>FIlle</u> : <strong>{{ fille }}</strong></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="padding-top: 20px; page-break-inside: auto">
+                <table width="100%" border="1" cellpadding="0" cellspacing="0"  style="page-break-inside: auto; page-break-before: revert">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>NOM</th>
+                        <th>PRENOMS</th>
+                        <th>VERSE</th>
+                        <th>RESTE</th>
+                    </tr>
+                    </thead>
+                    {% for scolarite in scolarites|slice(0,30) %}
+                        <tr style="">
+                            <td style="padding: 3px">{{ loop.index }}</td>
+                            <td style="padding: 3px">{{ scolarite.eleve.nom|upper}}</td>
+                            <td style="padding: 3px">{{ scolarite.eleve.prenoms|title }}</td>
+                            <td style="padding: 3px 7px 3px 3px" align="right">{{ scolarite.verse|number_format(0,'','.') }}</td>
+                            <td style="padding: 3px 7px 3px 3px" align="right">{{ scolarite.restant|number_format(0,'','.') }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </td>
+        </tr>
+        {% if scolarites|length > 30 %}
+            <tr>
+                <td colspan="2" style="padding-top: 20px; page-break-inside: auto">
+                    <table width="100%" border="1" cellpadding="0" cellspacing="0"  style="page-break-inside: auto; page-break-before: revert">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>NOM</th>
+                            <th>PRENOMS</th>
+                            <th>VERSE</th>
+                            <th>RESTE</th>
+                        </tr>
+                        </thead>
+                        {% set i = 30 %}
+                        {% for scolarite in scolarites|slice(31,60) %}
+                            {% set i = i+1 %}
+                            <tr style="">
+                                <td style="padding: 3px">{{ i }}</td>
+                                <td style="padding: 3px">{{ scolarite.eleve.nom|upper}}</td>
+                                <td style="padding: 3px">{{ scolarite.eleve.prenoms|title }}</td>
+                                <td style="padding: 3px 7px 3px 3px" align="right">{{ scolarite.verse|number_format(0,'','.') }}</td>
+                                <td style="padding: 3px 7px 3px 3px" align="right">{{ scolarite.restant|number_format(0,'','.') }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+            </tr>
+        {% endif %}
+        <tr>
+            <td colspan="2">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="20%"></td>
+                        <td style="padding: 5px 7px;" align="center" colspan="2">Total Scolarite: <strong>{{ tot_scolarite|number_format(0,'','.') }}</strong></td>
+                        <td style="padding: 5px 7px;" align="center">Total versé: <strong>{{ tot_verse|number_format(0,'','.') }}</strong></td>
+                        <td style="padding: 5px 7px;" align="center">Total reste: <strong>{{ tot_reste|number_format(0,'','.') }}</strong></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+{% endblock %}
