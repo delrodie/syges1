@@ -149,7 +149,7 @@
                                     <div class="table-responsive user-history">
                                         <table class="table text-white">
                                             <tbody>
-                                            {% for inscrit in inscrits|slice(0,10) %}
+                                            {% for inscrit in inscrits|slice(0,7) %}
                                                 <tr>
                                                     <td>
                                                         <img class="rounded-circle" src="{{ absolute_url(asset('assets/avatar.png')) }}" alt="user" width="40">
@@ -158,7 +158,7 @@
                                                         <a href="javascript:void(0);" class="text-white">{{ inscrit.eleve.nom|upper }} {{ inscrit.eleve.prenoms|title }}</a>
                                                     </td>
                                                     <td>{{ inscrit.classe.libelle }}</td>
-                                                    <td><a href="{{ path('inscription_show', {'id': inscrit.id}) }}"><i class="fa fa-print"></i></a></td>
+                                                    <td><a href="{{ path('imprimer_inscription', {'id': inscrit.id}) }}"><i class="fa fa-print"></i></a></td>
                                                 </tr>
                                             {% endfor %}
                                             </tbody>
@@ -206,7 +206,7 @@
                                                     <td class="text-right">{{  versement.verse|number_format(0,'','.') }}</td>
                                                     <td class="text-right">{{ versement.restant|number_format(0,'','.')}}</td>
                                                     <td class="text-center">{{ versement.createdAt|date('Y-m-d H:i:s') }}</td>
-                                                    <td class="text-center"><a href="{{ path('versement_show', {'id': versement.id}) }}"><i class="fa fa-print"></i></a></td>
+                                                    <td class="text-center"><a href="{{ path('imprime_versement', {'id': versement.id}) }}"><i class="fa fa-print"></i></a></td>
                                                 </tr>
                                             {% endfor %}
                                             </tbody>

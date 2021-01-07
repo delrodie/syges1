@@ -40,9 +40,10 @@ class InscriptionController extends AbstractController
      */
     public function index(InscriptionRepository $inscriptionRepository): Response
     {
+        $annee = $this->gestionEleve->annee();
         return $this->render('inscription/index.html.twig', [
-            'inscriptions' => $inscriptionRepository->findAll(),
-            'annee' => $this->gestionEleve->annee()
+            'inscriptions' => $inscriptionRepository->findByAnnee($annee),
+            'annee' => $annee
         ]);
     }
 

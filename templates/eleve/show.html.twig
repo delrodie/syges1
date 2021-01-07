@@ -148,9 +148,9 @@
                                                 <td class="text-right pr-1">{{ bordereau.verse|number_format(0,'','.') }}</td>
                                                 <td class="text-right pr-1">{{ bordereau.reste|number_format(0,'','.') }}</td>
                                                 {% if bordereau.type == 'inscription' %}
-                                                    <td class="text-center"><a href="{{ path('inscription_show', {'id': bordereau.id}) }}"><i class="fa fa-print"></i></a></td>
+                                                    <td class="text-center"><a href="{{ path('imprimer_inscription', {'id': bordereau.id}) }}"><i class="fa fa-print"></i></a></td>
                                                 {% elseif bordereau.type == 'versement' %}
-                                                    <td class="text-center"><a href="{{ path('versement_show', {'id': bordereau.id}) }}"><i class="fa fa-print"></i></a></td>
+                                                    <td class="text-center"><a href="{{ path('imprime_versement', {'id': bordereau.id}) }}"><i class="fa fa-print"></i></a></td>
                                                 {% else %}
                                                     <td class="text-center"><i class="fa fa-eraser"></i></td>
                                                 {% endif %}

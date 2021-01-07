@@ -40,8 +40,8 @@ class VersementController extends AbstractController
     {
         $annee = $this->gestionEleve->annee();
         return $this->render('versement/index.html.twig', [
-            'versements' => $versementRepository->findBy(['annee'=>$annee]),
-            'annee' => $this->gestionEleve->annee()
+            'versements' => $versementRepository->findByAnnee($annee),
+            'annee' => $annee
         ]);
     }
 
