@@ -42,6 +42,35 @@ class VersementRepository extends ServiceEntityRepository
 
     }
 
+    public function findBySearch($classe = null, $debut = null, $fin = null)
+    {
+        $q = $this->createQueryBuilder('v')
+            ->addSelect('e')
+            ->addSelect('c')
+            ->leftJoin('v.eleve', 'e')
+            ->leftJoin('v.classe', 'c');
+        if ($classe && $debut && $fin){
+            $q->where('v.classe = :classe')
+                ->andWhere('v.date BETWEEN :debut AND :fin')
+                ->setParameters([
+                    'classe' => $classe,
+                    'debut' => $debut,
+                    'fin' => $fin
+                ]);
+        }elseif ($debut && $fin){
+            $q->where('v.date BETWEEN :debut AND :fin')
+                ->setParameters([
+                    'debut' => $debut,
+                    'fin' => $fin
+                ]);
+        }else{
+            $q->where('v.date = :date')
+                ->setParameter('date', date('Y-m-d', time()));
+        }
+
+        return $q->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Versement[] Returns an array of Versement objects
     //  */

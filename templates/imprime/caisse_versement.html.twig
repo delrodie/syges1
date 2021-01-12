@@ -1,0 +1,79 @@
+{% extends 'base_imprime.html.twig' %}
+{% block title %}Versments de la période du {{ debut|date('d/m/Y') }} au {{ fin|date('d/m/Y') }}{% endblock %}
+{% block body %}
+    <table width="100%" style="padding-top: 20px; border-top: dotted 1px #272c30;">
+        <tr>
+            <td style="text-align:center;">GROUPE SCOLAIRE LES SERAPHINS ABOBO </td>
+            <td style="text-align: center;">REPUBLIQUE DE COTE D'IVOIRE</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">AGBEKOIA-CI</td>
+            <td style="text-align:center;">UNION - DISCIPLINE - TRAVAIL</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">Adresse : 09 BP 937 ABIDJAN 09</td>
+            <td style="text-align: center; font-size: .9rem;">ANNEE SCOLAIRE <b>2020-2021</b></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="margin-top: 25px; padding-top: 30px;" >
+                <table width="100%">
+                    <tr>
+                        <td colspan="3"><u>Versements</u> du: <strong>{{ debut }}</strong> au <strong>{{ fin }}</strong></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        {% for i in 1..nombre_ligne %}
+            <tr>
+                <td colspan="2" style="padding-top: 20px; page-break-inside: auto">
+                    <table width="100%" border="1" cellpadding="0" cellspacing="0"  {% if loop.index > 1 %}style="page-break-inside: revert; page-break-before: always;"{% endif %}>
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>CLASSE</th>
+                            <th>NOM</th>
+                            <th>PRENOMS</th>
+                            <th>MONTANT</th>
+                        </tr>
+                        </thead>
+                        {% if i == 1 %}
+                            {% set j = 0 %}
+                            {% set k = i*30 %}
+                        {% elseif i == 2 %}
+                            {% set j = 30  %}
+                            {% set k = i*33 %}
+                        {% else %}
+                            {% set j = (i-1)*33  %}
+                            {% set k = i*33 %}
+                        {% endif %}
+                        {% for versement in versements|slice(j, k) %}
+                            {% set l = j + loop.index %}
+                            {% if l <= k %}
+                                <tr style="">
+                                    <td style="padding: 3px 7px 3px 3px; text-align:right;">{{ l }}</td>
+                                    <td style="padding: 3px">{{ versement.classe.libelle|upper}}</td>
+                                    <td style="padding: 3px">{{ versement.eleve.nom|upper}}</td>
+                                    <td style="padding: 3px">{{ versement.eleve.prenoms|title }}</td>
+                                    <td style="padding: 3px 7px 3px 3px" align="right">{{ versement.verse|number_format(0,'','.') }}</td>
+                                </tr>
+                            {% else %}
+                            {% endif %}
+
+                        {% endfor %}
+                    </table>
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="2">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="20%"></td>
+                        <td style="padding: 5px 7px;" align="right" colspan="2">Total Scolarite: <strong>{{ tot_verse|number_format(0,'','.') }}</strong></td>
+                        <td style="padding: 5px 7px;" align="right" colspan="2">Total reste: <strong>{{ tot_reste|number_format(0,'','.') }}</strong></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+{% endblock %}
