@@ -18,7 +18,7 @@
             <td colspan="2" style="margin-top: 25px; padding-top: 30px;" >
                 <table width="100%">
                     <tr>
-                        <td colspan="3"><u>Versements</u> du: <strong>{{ debut }}</strong> au <strong>{{ fin }}</strong></td>
+                        <td colspan="3"><u>Versements</u> du: <strong>{{ debut|date('d/m/Y') }}</strong> au <strong>{{ fin|date('d/m/Y') }}</strong></td>
                     </tr>
                 </table>
             </td>
@@ -69,7 +69,7 @@
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td width="20%"></td>
-                        <td style="padding: 5px 7px;" align="right" colspan="2">Total Scolarite: <strong>{{ tot_verse|number_format(0,'','.') }}</strong></td>
+                        <td style="padding: 5px 7px;" align="right" colspan="2">Total versé: <strong>{{ tot_verse|number_format(0,'','.') }}</strong></td>
                         <td style="padding: 5px 7px;" align="right" colspan="2">Total reste: <strong>{{ tot_reste|number_format(0,'','.') }}</strong></td>
                     </tr>
                 </table>

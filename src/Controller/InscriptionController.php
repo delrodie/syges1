@@ -76,6 +76,8 @@ class InscriptionController extends AbstractController
                 return  $this->redirectToRoute('inscription_new',['eleve'=>$eleve->getId()]);
             }
 
+            // Verifier que le montant saisie est multiple de 100
+
             // gestion de la classe de l'eleve
             $class_req = $request->get('inscription_classe');
             $classe = $this->classeRepository->findOneBy(['id'=>$class_req]);
@@ -98,6 +100,8 @@ class InscriptionController extends AbstractController
 
             $entityManager->persist($inscription);
             $entityManager->flush();
+
+            $this->gestionEleve->insertion_inscription($inscription->getId());
 
             if (!$this->gestionEleve->scolarite($inscription->getId()));
 

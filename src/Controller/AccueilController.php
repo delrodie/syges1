@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Inscription;
+use App\Entity\Versement;
 use App\Utilities\GestionEleve;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -62,5 +64,20 @@ class AccueilController extends AbstractController
             'classes' => $classes,
             'effectifs' => $effectifs,
         ]);
+    }
+
+    /**
+     * @Route("/restaurer", name="app_restauration")
+     */
+    public function restauration()
+    {
+        $inscriptions = $this->getDoctrine()->getRepository(Inscription::class)->findBy(['versement'=>null]);
+        if ($inscriptions){
+            foreach ($inscriptions as $inscription){
+                $this->gestionElelve->insertion_inscription($inscription->getId());
+            }
+        }
+
+        return $this->redirectToRoute('app_ccueil');
     }
 }

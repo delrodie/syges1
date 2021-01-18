@@ -52,6 +52,7 @@ class VersementRepository extends ServiceEntityRepository
         if ($classe && $debut && $fin){
             $q->where('v.classe = :classe')
                 ->andWhere('v.date BETWEEN :debut AND :fin')
+                ->orderBy('v.date', 'ASC')
                 ->setParameters([
                     'classe' => $classe,
                     'debut' => $debut,
@@ -59,12 +60,14 @@ class VersementRepository extends ServiceEntityRepository
                 ]);
         }elseif ($debut && $fin){
             $q->where('v.date BETWEEN :debut AND :fin')
+                ->orderBy('v.date', "ASC")
                 ->setParameters([
                     'debut' => $debut,
                     'fin' => $fin
                 ]);
         }else{
             $q->where('v.date = :date')
+                ->orderBy('v.date', 'ASC')
                 ->setParameter('date', date('Y-m-d', time()));
         }
 

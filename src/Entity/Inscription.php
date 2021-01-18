@@ -62,6 +62,11 @@ class Inscription
      */
     private $date;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $versement;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -176,6 +181,18 @@ class Inscription
     public function setDate(?string $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getVersement(): ?bool
+    {
+        return $this->versement;
+    }
+
+    public function setVersement(?bool $versement): self
+    {
+        $this->versement = $versement;
 
         return $this;
     }

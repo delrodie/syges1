@@ -5,6 +5,7 @@ namespace App\Utilities;
 
 
 use App\Entity\Scolarite;
+use App\Entity\Versement;
 use App\Repository\EleveRepository;
 use App\Repository\InscriptionRepository;
 use App\Repository\ScolariteRepository;
@@ -234,6 +235,32 @@ class GestionEleve
 
 
         return $bordereaux;
+    }
+
+    public function insertion_inscription($id)
+    {
+        $versment = new Versement();
+
+        $inscription = $this->inscriptionRepository->findOneBy(['id'=>$id]);
+        if ($inscription){
+            $versment->setEleve($inscription->getEleve());
+            $versment->setClasse($inscription->getClasse());
+            $versment->setNumero($inscription->getNumero().' I');
+            $versment->setAnnee($inscription->getAnnee());
+            $versment->setVerse($inscription->getVerse());
+            $versment->setRestant($inscription->getRestant());
+            $versment->setCreatedBy($inscription->getCreatedBy());
+            $versment->setDate($inscription->getDate());
+
+            $inscription->setVersement(true);
+
+            $this->em->persist($versment);
+            $this->em->flush();
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
