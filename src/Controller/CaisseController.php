@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Classe;
+use App\Entity\Operation;
 use App\Entity\Versement;
 use App\Form\SearchVersementType;
 use App\Utilities\GestionEleve;
@@ -154,5 +155,28 @@ class CaisseController extends AbstractController
         ]);
 
         return new Response();
+    }
+
+    /**
+     * @Route("/caisse/reinitialiser", name="caisse_operation_reinitialisation", methods={"GET"})
+     */
+    public function operation()
+    {
+        //$this->gestionEleve->operationCaisse($variable=[]);
+        $annee = $this->gestionEleve->annee();
+        $items = $this->getDoctrine()->getRepository(Versement::class)->getMontantGroupByDate();
+        foreach ($items as $item){
+            $variable = [
+                'type' => 'ENTREE',
+                'montant'=> $item['montant'],
+                'date' => $item['date'],
+            ];
+            $this->gestionEleve->operationCaisse($variable);
+        }
+
+        return $this->render('caisse/operation.html.twig',[
+            'operations'=> $this->getDoctrine()->getRepository(Operation::class)->findBy(['annee'=> $annee]),
+            'annee'=> $annee
+        ]);
     }
 }

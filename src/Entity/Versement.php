@@ -62,6 +62,11 @@ class Versement
      */
     private $date;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $caisse;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -176,6 +181,18 @@ class Versement
     public function setDate(?string $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getCaisse(): ?bool
+    {
+        return $this->caisse;
+    }
+
+    public function setCaisse(?bool $caisse): self
+    {
+        $this->caisse = $caisse;
 
         return $this;
     }

@@ -57,7 +57,10 @@
                         <ul class="list-unstyled">
                             <li><a href="{{ path('inscription_index') }}">Inscription</a></li>
                             <li><a href="{{ path('versement_index') }}">Versement</a></li>
-                            <!--<li><a href="#">Paiement</a></li>-->
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ path('operation_index') }}">Opérations caisse</a></li>
+                            {% endif %}
+
                         </ul>
                     </li>
 
@@ -75,7 +78,7 @@
                             <a href="javascript:void(0);" class="waves-effect waves-light"><i class="mdi mdi-reply-all"></i><span> Restauration </span><span class="float-right"><i class="mdi mdi-chevron-right"></i></span> </a>
                             <ul class="list-unstyled">
                                 <li><a href="{{ path('app_restauration') }}"> Versement</a></li>
-                                <li><a href="{{ path('app_restauration') }}"> Entree</a></li>
+                                <li><a href="{{ path('caisse_operation_reinitialisation') }}"> Entree</a></li>
                             </ul>
                         </li>
                     {% endif %}

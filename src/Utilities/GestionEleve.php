@@ -4,6 +4,7 @@
 namespace App\Utilities;
 
 
+use App\Entity\Operation;
 use App\Entity\Scolarite;
 use App\Entity\Versement;
 use App\Repository\EleveRepository;
@@ -257,10 +258,58 @@ class GestionEleve
             $this->em->persist($versment);
             $this->em->flush();
 
+            $variable = [
+                'type' => "ENTREE",
+                'date' => $inscription->getDate(),
+                'montant' =>$inscription->getVerse(),
+            ];
+
+            $this->operationCaisse($variable);
+
             return true;
         }
 
         return false;
+    }
+
+    public function operationCaisse($variable)
+    {
+
+        $verif = $this->em->getRepository(Operation::class)->findOneBy(['dateOperation'=>$variable['date']]);
+        if ($verif){
+            $verif->setDateOperation($variable['date']);
+            $verif->setMontant($verif->getMontant() + $variable['montant']);
+            $verif->setType($variable['type']);
+            $verif->setAnnee($this->annee());
+
+            $this->em->flush();
+
+            // Mise a jour de la table versement
+            $versements = $this->em->getRepository(Versement::class)->findBy(['date'=>$variable['date']]);
+            foreach ($versements as $versement){
+                $versement->setCaisse(true);
+                $this->em->flush();
+            }
+
+        } else{
+            $operation = new Operation();
+            $operation->setDateOperation($variable['date']);
+            $operation->setMontant($variable['montant']);
+            $operation->setType($variable['type']);
+            $operation->setAnnee($this->annee()); //dd($operation);
+
+            $this->em->persist($operation);
+            $this->em->flush();
+
+            // Mise a jour de la table versement
+            $versements = $this->em->getRepository(Versement::class)->findBy(['date'=>$variable['date']]);
+            foreach ($versements as $versement){
+                $versement->setCaisse(true);
+                $this->em->flush();
+            }
+        }
+
+        return true;
     }
 
     /**

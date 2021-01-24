@@ -106,6 +106,14 @@ class VersementController extends AbstractController
             $entityManager->persist($versement);
             $entityManager->flush();
 
+            $variable = [
+                'date'=> $versement->getDate(),
+                'montant' => $versement->getVerse(),
+                'type' => 'ENTREE'
+            ];
+
+            $this->gestionEleve->operationCaisse($variable);
+
             if (!$this->gestionEleve->scolarite(null, $versement->getId()));
 
             return $this->redirectToRoute('versement_show',['id'=>$versement->getId()]);

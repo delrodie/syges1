@@ -42,6 +42,12 @@ class VersementRepository extends ServiceEntityRepository
 
     }
 
+    /**
+     * @param null $classe
+     * @param null $debut
+     * @param null $fin
+     * @return int|mixed|string
+     */
     public function findBySearch($classe = null, $debut = null, $fin = null)
     {
         $q = $this->createQueryBuilder('v')
@@ -72,6 +78,18 @@ class VersementRepository extends ServiceEntityRepository
         }
 
         return $q->getQuery()->getResult();
+    }
+
+    public function getMontantGroupByDate()
+    {
+        return $this->createQueryBuilder('v')
+            ->select('SUM(v.verse) as montant')
+            ->addSelect('v.date')
+            //->addSelect('v.annee')
+            ->groupBy('v.date')
+            ->where('v.caisse <> 1')
+            ->getQuery()->getResult()
+            ;
     }
 
     // /**
