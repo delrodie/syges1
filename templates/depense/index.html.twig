@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} Liste des opérations caisse{% endblock %}
+{% block title %}{{ parent() }} Liste des dépenses{% endblock %}
 
 
 
@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="page-title-box">
-                    <h4 class="page-title">Liste des opéarations caisse {{ annee }}</h4>
+                    <h4 class="page-title">Liste des dépenses {{ annee }}</h4>
                 </div>
             </div>
         </div>
@@ -33,6 +33,11 @@
                         </form>
                     </div>
                 </div>
+                <div class="row mb-5">
+                    <div class="col text-right">
+                        <a href="{{ path('depense_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Ajouter</a>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-12">
                         <div class="table-responsive">
@@ -41,17 +46,17 @@
                                 <tr>
                                     <th class="text-center">Id</th>
                                     <th class="text-center">DATES</th>
-                                    <th class="text-center">TYPES</th>
+                                    <th class="text-center">DESCRIPTIONS</th>
                                     <th class="text-center">MONTANTS</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for operation in operations %}
+                                {% for depense in depenses %}
                                     <tr class="text-center">
                                         <td class="text-center"> {{ loop.index }}</td>
-                                        <td class="text-center">{{ operation.dateOperation|date('Y-m-d') }}</td>
-                                        <td class="text-center">{{ operation.type }}</td>
-                                        <td class="text-center pr-1">{{ operation.montant|number_format(0,'',' ') }}</td>
+                                        <td class="text-center">{{ depense.date|date('Y-m-d') }}</td>
+                                        <td class="text-center">{{ depense.description }}</td>
+                                        <td class="text-center pr-1">{{ depense.montant|number_format(0,'',' ') }}</td>
 
                                     </tr>
                                 {% else %}
@@ -62,13 +67,9 @@
                                 </tbody>
                                 <tfooter>
                                     <tr>
-                                        <td colspan="2"></td>
-                                        <td colspan="2">
-                                            <div class="row">
-                                                <div class="col text-center">Total entrees: <strong style="color: yellow">{{ entree|number_format(0,'',' ') }}</strong> FCFA </div>
-                                                <div class="col text-center">Total depenses: <strong style="color: yellow">{{ depense|number_format(0,'',' ') }}</strong> FCFA</div>
-                                                <div class="col text-center">Solde: <strong style="color: yellow">{{ solde|number_format(0,'',' ') }}</strong> FCFA</div>
-                                            </div>
+                                        <td colspan="3"></td>
+                                        <td colspan="1" class="text-center">
+                                            Total : <strong style="color: yellow">{{ total|number_format(0,'',' ') }}</strong> FCFA
                                         </td>
                                     </tr>
                                 </tfooter>
@@ -107,7 +108,8 @@
     <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/buttons.colVis.min.js')) }}"></script>
     <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/dataTables.responsive.min.js')) }}"></script>
     <script src="{{ absolute_url(asset('assets/backoffice/plugins/datatables/responsive.bootstrap4.min.js')) }}"></script>
-    <script src="{{ absolute_url(asset('assets/backoffice/pages/datatables.init.js')) }}"></script><script src="{{ absolute_url(asset('assets/backoffice/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/pages/datatables.init.js')) }}"></script>
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')) }}"></script>
     <script>
         $().ready(function (t) {
             //t("#eleve_dateNaissance").bootstrapMaterialDatePicker({weekStart:0,time:!1})

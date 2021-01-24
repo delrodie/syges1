@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Gestion des dépenses {% endblock %}
+
+{% block body %}
+    <div class="content-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">Formulaire d'enregistrement des élèves</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12 text-right">
+                <a href="{{ path('depense_index') }}" class="btn btn-primary" ><i class="fa fa-list"></i> Liste des dépenses</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="text-dark card-title">Depenses du mois</h3>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr class="text-center">
+                                    <th class="border-0 pt-0 pl-0"> #
+                                    </th>
+                                    <th class="border-0 pt-0">DATES</th>
+                                    <th class="border-0 pt-0">DESCRIPTIONS</th>
+                                    <th class="border-0 pt-0">MONTANTS</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for depense in depenses %}
+                                    <tr class="text-center text-white">
+                                        <td class="pl-0">{{ loop.index }}</td>
+                                        <td>{{depense.date|date('Y-m-d')}}</td>
+                                        <td>{{depense.description}}</td>
+                                        <td>{{depense.montant|number_format(0,'','.')}}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 d-flex grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="text-dark card-title">Enregistrement</h3>
+                        {{ include('depense/_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/backoffice/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ absolute_url(asset('assets/backoffice/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')) }}"></script>
+    <script>
+        $().ready(function (t) {
+            //t("#eleve_dateNaissance").bootstrapMaterialDatePicker({weekStart:0,time:!1})
+            t(".date").datepicker({
+                format: "yyyy-mm-dd",
+                locale: 'FR',
+                autoclose: !0
+            })
+        })
+    </script>
+{% endblock %}

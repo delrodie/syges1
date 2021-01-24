@@ -59,6 +59,7 @@
                             <li><a href="{{ path('versement_index') }}">Versement</a></li>
                             {% if is_granted('ROLE_ADMIN') %}
                                 <li><a href="{{ path('operation_index') }}">Opérations caisse</a></li>
+                                <li><a href="{{ path('depense_index') }}">Dépenses</a></li>
                             {% endif %}
 
                         </ul>

@@ -274,8 +274,8 @@ class GestionEleve
 
     public function operationCaisse($variable)
     {
-
-        $verif = $this->em->getRepository(Operation::class)->findOneBy(['dateOperation'=>$variable['date']]);
+        $type = $variable['type'];
+        $verif = $this->em->getRepository(Operation::class)->findOneBy(['dateOperation'=>$variable['date'], 'type'=>$type]);
         if ($verif){
             $verif->setDateOperation($variable['date']);
             $verif->setMontant($verif->getMontant() + $variable['montant']);
@@ -284,12 +284,16 @@ class GestionEleve
 
             $this->em->flush();
 
-            // Mise a jour de la table versement
-            $versements = $this->em->getRepository(Versement::class)->findBy(['date'=>$variable['date']]);
-            foreach ($versements as $versement){
-                $versement->setCaisse(true);
-                $this->em->flush();
+            if ($type === 'ENTREE'){
+                // Mise a jour de la table versement
+                $versements = $this->em->getRepository(Versement::class)->findBy(['date'=>$variable['date']]);
+                foreach ($versements as $versement){
+                    $versement->setCaisse(true);
+                    $this->em->flush();
+                }
             }
+
+
 
         } else{
             $operation = new Operation();
@@ -301,12 +305,15 @@ class GestionEleve
             $this->em->persist($operation);
             $this->em->flush();
 
-            // Mise a jour de la table versement
-            $versements = $this->em->getRepository(Versement::class)->findBy(['date'=>$variable['date']]);
-            foreach ($versements as $versement){
-                $versement->setCaisse(true);
-                $this->em->flush();
+            if ($type === 'ENTREE'){
+                // Mise a jour de la table versement
+                $versements = $this->em->getRepository(Versement::class)->findBy(['date'=>$variable['date']]);
+                foreach ($versements as $versement){
+                    $versement->setCaisse(true);
+                    $this->em->flush();
+                }
             }
+
         }
 
         return true;

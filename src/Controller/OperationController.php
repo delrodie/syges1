@@ -43,12 +43,14 @@ class OperationController extends AbstractController
             if ($operation->getType() === 'ENTREE') $entree = $entree + $operation->getMontant();
             else $depense = $depense + $operation->getMontant();
         }
+        $solde = $entree - $depense;
 
         return $this->render('operation/index.html.twig', [
             'operations' => $operations,
             'annee' => $annee,
             'entree'=> $entree,
-            'depense' => $depense
+            'depense' => $depense,
+            'solde' => $solde
         ]);
     }
 
