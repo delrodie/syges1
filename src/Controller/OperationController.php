@@ -36,6 +36,7 @@ class OperationController extends AbstractController
             $operations = $operationRepository->findByPeriode($debut, $fin);
         }else{
             $operations = $operationRepository->findBy(['annee'=>$annee], ['dateOperation'=>"DESC"]);
+            $debut = false; $fin = null;
         }
 
         $entree = 0; $depense = 0;
@@ -50,7 +51,9 @@ class OperationController extends AbstractController
             'annee' => $annee,
             'entree'=> $entree,
             'depense' => $depense,
-            'solde' => $solde
+            'solde' => $solde,
+            'debut' => $debut,
+            'fin' => $fin
         ]);
     }
 

@@ -23,6 +23,7 @@ class OperationRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('o')
             ->where('o.dateOperation BETWEEN :debut AND :fin')
+            ->orderBy('o.dateOperation', 'ASC')
             ->setParameters([
                 'debut' => $debut,
                 'fin' => $fin

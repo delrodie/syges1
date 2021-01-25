@@ -17,20 +17,37 @@
             <div class="card-body">
                 <div class="row mb-5">
                     <div class="col-8 offset-2 text-left recherche">
-                        <form action="">
                             <div class="row">
-                                <div class="col-4">
-                                    <input type="text" name="search_debut" placeholder="Début période" class="form-control date" autocomplete="off" required>
+                                <div class="col-10">
+                                        <form action="{{ path('operation_index') }}">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <input type="text" name="search_debut" placeholder="Début période" class="form-control date" autocomplete="off" required>
+                                                </div>
+                                                <div class="col-4">
+                                                    <input type="text" name="search_fin" placeholder="Fin période" class="form-control date" autocomplete="off" required>
+                                                </div>
+                                                <div class="col-4">
+                                                    <button class="btn btn-primary">Rechercher</button>
+                                                    <a href="{{ path('operation_index') }}" class="btn btn-outline-primary"><i class="fa fa-list"></i> Liste</a>
+                                                </div>
+                                            </div>
+                                        </form>
                                 </div>
-                                <div class="col-4">
-                                    <input type="text" name="search_fin" placeholder="Fin période" class="form-control date" autocomplete="off" required>
-                                </div>
-                                <div class="col-4">
-                                    <button class="btn btn-primary">Rechercher</button>
-                                    <a href="{{ path('operation_index') }}" class="btn btn-outline-primary"><i class="fa fa-list"></i> Liste</a>
+
+                                <div class="col-2 text-right">
+                                    <form action="{{ path('imprime_caisse_operation') }}" method="post">
+                                        {% if debut %}
+                                            <input type="hidden" name="search_debut" value="{{ debut }}">
+                                        {% endif %}
+                                        {% if fin %}
+                                            <input type="hidden" name="search_fin" value="{{ fin }}">
+                                        {% endif %}
+
+                                        <button class="btn btn-danger"><i class="fa fa-print"></i> Imprimer</button>
+                                    </form>
                                 </div>
                             </div>
-                        </form>
                     </div>
                 </div>
                 <div class="row">
